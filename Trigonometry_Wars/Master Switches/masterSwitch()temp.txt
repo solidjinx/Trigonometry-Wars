@@ -1,0 +1,783 @@
+int programState;          ////Judges whether in title {0}, classicModeState {1}, adventureModeState {2}, Pause menu {3}, or Transition Animations (global) {4}
+
+int classicModeState;        //judges whether in tutorial {1-6}, Countdown {7-9}, classicModeGame {10}, death animation {11}, loser screen {12}, or winner screen {13}
+int classicModeGame;         //Judges whether in play -- Round 1 {1}, 2 {2}, 3 wor 4 (boss) {4}
+
+int adventureModeState;           //Judges whether in adventureModeWorldSelection {0}, adventureModeGame {1}, death animation {2}, loser screen {3}, winner screen {4}, Jet upgrades menu {5}, or Storyline {6}
+int adventureModeWorldSelection;  //Judges whether in World 1 {1}, 2 {2}, 3 {3}, 4 {4}, or 5 (boss) {5}
+int adventureModeGame;            //Judges whether in play -- World 1 {11-13}, World 2 {21-22}, World 3 {31-34}, World 4 {41-45}, World 5 {51-53}
+
+3271
+
+void masterSwitch(){
+  switch (programState){
+    case 0:  //Title
+      classicScreenBackground();
+      rectMode(CENTER);
+      textAlign(CENTER,CENTER);
+      textFont(classicTitleFont,ScaleFont(160));
+      fill(c2);
+      text(Title,width/2,height/6);
+      textFont(classicBodyFont,ScaleFont(90));
+      fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+      text(SubTitle,width/2,height/6 + ScaleFont(160));
+      textFont(classicBodyFont,ScaleFont(40));
+      fill(0,200,0);
+      text(InstructionsP00,width - ScaleFont(400),height - ScaleFont(60));
+      text(InstructionsP01,ScaleFont(450),height - ScaleFont(60));
+      if (keyPressed && key == '1'){
+        Reroll(0,0,0,0,0);
+        programState = 1;
+        classicModeState = 1;
+        break;
+      }
+      else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+        Reroll(42,8,0,0,0);
+        programState = 1;
+        classicModeState = 7;
+        break;
+      }
+    break;
+    case 1:  //Classic Mode
+      switch (classicModeState){
+        case 1:  //Tutorial
+          classicScreenBackground();
+          Fulcrum.move();
+          Fulcrum.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP11,width/2,height/6 + ScaleFont(140));
+          textFont(classicBodyFont,ScaleFont(60));
+          fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+          text(InstructionsP12,width/2,height/6 + ScaleFont(190));
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP13,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP14,width/2,height/6 + ScaleFont(280));
+          text(InstructionsP15,width - ScaleFont(440),height - ScaleFont(60));
+          text(InstructionsP16,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '2'){
+            Reroll(1,0,0,0,0);
+            programState = 1;
+            classicModeState = 2;
+            break;
+          }
+          else if (keyPressed && keyCode == 'q' || keyCode == 'Q'){
+            Reroll(0,0,0,0,0);
+            programState = 0;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 2:  //Tutorial
+          classicScreenBackground();
+          Red_Brick singleBrick = Red_Brick.get(0);
+          singleBrick.enemySize = 100;
+          singleBrick.move();
+          singleBrick.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP21,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP22,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP23,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP24,width - ScaleFont(500),height - ScaleFont(60));
+          text(InstructionsP25,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '3'){
+            singleBrick.enemySize = 40;
+            Red_Brick.remove(singleBrick);
+            Reroll(0,1,0,0,0);
+            programState = 1;
+            classicModeState = 3;
+            break;
+          }
+          else if (keyPressed && keyCode == 'w' || keyCode == 'W'){
+            singleBrick.enemySize = 40;
+            Red_Brick.remove(singleBrick);
+            Reroll(0,0,0,0,0);
+            programState = 1;
+            classicModeState = 1;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            singleBrick.enemySize = 40;
+            Red_Brick.remove(singleBrick);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 3:  //Tutorial
+          classicScreenBackground();
+          Purple_Saucer singleSaucer = Purple_Saucer.get(0);
+          singleSaucer.saucerSpeed = 10;
+          singleSaucer.enemySize = 120;
+          singleSaucer.move();
+          singleSaucer.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP31,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP32,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP33,width - ScaleFont(470),height - ScaleFont(60));
+          text(InstructionsP34,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '4'){
+            singleSaucer.saucerSpeed = 2;
+            singleSaucer.enemySize = 80;
+            Purple_Saucer.remove(singleSaucer);
+            Reroll(0,0,1,0,0);
+            programState = 1;
+            classicModeState = 4;
+            break;
+          }
+          else if (keyPressed && keyCode == 'e' || keyCode == 'E'){
+            singleSaucer.saucerSpeed = 2;
+            singleSaucer.enemySize = 80;
+            Purple_Saucer.remove(singleSaucer);
+            Reroll(1,0,0,0,0);
+            programState = 1;
+            classicModeState = 2;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            singleSaucer.saucerSpeed = 2;
+            singleSaucer.enemySize = 80;
+            Purple_Saucer.remove(singleSaucer);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 4:  //Tutorial
+          classicScreenBackground();
+          Rainbow_Tracer singleTracer = Rainbow_Tracer.get(0);
+          singleTracer.tracerSpeed = 24;
+          singleTracer.enemySize = 120;
+          singleTracer.move();
+          singleTracer.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP41,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP42,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP43,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP44,width - ScaleFont(450),height - ScaleFont(60));
+          text(InstructionsP45,350,height - ScaleFont(60));
+          if (keyPressed && key == '5'){
+            singleTracer.tracerSpeed = 6;
+            singleTracer.enemySize = 60;
+            Rainbow_Tracer.remove(singleTracer);
+            Reroll(0,0,0,1,0);
+            programState = 1;
+            classicModeState = 5;
+            break;
+          }
+          else if (keyPressed && keyCode == 'r' || keyCode == 'R'){
+            singleTracer.tracerSpeed = 6;
+            singleTracer.enemySize = 60;
+            Rainbow_Tracer.remove(singleTracer);
+            Reroll(0,1,0,0,0);
+            programState = 1;
+            classicModeState = 3;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            singleTracer.tracerSpeed = 6;
+            singleTracer.enemySize = 60;
+            Rainbow_Tracer.remove(singleTracer);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 5:  //Tutorial
+          classicScreenBackground();
+          Violent_Seeker singleSeeker = Violent_Seeker.get(0);
+          singleSeeker.move();
+          singleSeeker.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP51,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP52,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP53,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP54,width - ScaleFont(450),height - ScaleFont(60));
+          text(InstructionsP55,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '6'){
+            Violent_Seeker.remove(singleSeeker);
+            Reroll(0,0,0,0,1);
+            programState = 1;
+            classicModeState = 6;
+            break;
+          }
+          else if (keyPressed && keyCode == 't' || keyCode == 'T'){
+            Violent_Seeker.remove(singleSeeker);
+            Reroll(0,0,1,0,0);
+            programState = 1;
+            classicModeState = 4;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            Violent_Seeker.remove(singleSeeker);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 6:  //Tutorial
+          classicScreenBackground();
+          Momma_Marble singleMarble = Momma_Marble.get(0);
+          singleMarble.move();
+          singleMarble.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP61,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP62,width - ScaleFont(400),height - ScaleFont(60));
+          text(InstructionsP63,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && keyCode == 'y' || keyCode == 'Y'){
+            Momma_Marble.remove(singleMarble);
+            Reroll(0,0,0,1,0);
+            programState = 1;
+            classicModeState = 5;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            Momma_Marble.remove(singleMarble);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 7:  //Countdown 3
+          background(0);
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,Average(width,height)*0.6);
+          fill(0,255,0);
+          text(3,width/2,height/2);
+          delay(1000);
+          classicModeState++;
+        break;
+        case 8:  //Countdown 2
+          background(0);
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,Average(width,height)*0.4);
+          fill(255,255,0);
+          text(2,width/2,height/2);
+          delay(1000);
+          classicModeState++;
+        break;
+        case 9:  //Countdown 1
+          background(0);
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,Average(width,height)*0.3);
+          fill(255,0,0);
+          text(1,width/2,height/2);
+          delay(500);
+          //Checks Round 1, 2, 3, or no round completed, respectively
+          if (classicModeGame == 1 && playerSCORE > 0){
+            Reroll(42,16,8,0,0);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 2;
+            break;
+          }
+          else if (classicModeGame == 2){
+            Reroll(32,32,16,4,0);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 3;
+            break;
+          }
+          else if (classicModeGame == 3){
+            Reroll(32,32,8,8,1);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 4;
+            break;
+          }
+          else {
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 1;
+          }
+        break;
+        case 10: //Classic Game
+          switch (classicModeGame){
+            case 1:  //Round 1
+              black = 0;
+              JetWash();
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 7;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+            break;
+            case 2:  //Round 2
+              black = 0;
+              JetWash();
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 7;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+              //enemy level 3
+              for (int i = 0; i < Rainbow_Tracer.size(); i++){
+                singleTracer = Rainbow_Tracer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleTracer.enemySize/2)){
+                  Rainbow_Tracer.remove(singleTracer);
+                  playerSCORE += singleTracer.VALUE;
+                }
+                singleTracer.move();
+                singleTracer.display();
+              }
+            break;
+            case 3:  //Round 3
+              black = 0;
+              JetWash();
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 7;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+              //enemy level 3
+              for (int i = 0; i < Rainbow_Tracer.size(); i++){
+                singleTracer = Rainbow_Tracer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleTracer.enemySize/2)){
+                  Rainbow_Tracer.remove(singleTracer);
+                  playerSCORE += singleTracer.VALUE;
+                }
+                singleTracer.move();
+                singleTracer.display();
+              }
+              //enemy level 4
+              for (int i = 0; i < Violent_Seeker.size(); i++){
+                singleSeeker = Violent_Seeker.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSeeker.location.x,singleSeeker.location.y,76)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSeeker.location.x,singleSeeker.location.y,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),82)){
+                  Violent_Seeker.remove(singleSeeker);
+                  playerSCORE += singleSeeker.VALUE;
+                }
+                singleSeeker.move();
+                singleSeeker.display();
+              }
+            break;
+            case 4:  //Round 4 (Boss)
+              black = 0;
+              JetWash();
+              if (Momma_Marble.size() == 0){
+                Fulcrum.gravityWell = false;
+              }
+              else {
+                Fulcrum.gravityWell = true;
+              }
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Checks for Boss status, then detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 13;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+              //enemy level 3
+              for (int i = 0; i < Rainbow_Tracer.size(); i++){
+                singleTracer = Rainbow_Tracer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleTracer.enemySize/2)){
+                  Rainbow_Tracer.remove(singleTracer);
+                  playerSCORE += singleTracer.VALUE;
+                }
+                singleTracer.move();
+                singleTracer.display();
+              }
+              //enemy level 4
+              for (int i = 0; i < Violent_Seeker.size(); i++){
+                singleSeeker = Violent_Seeker.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSeeker.location.x,singleSeeker.location.y,76)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSeeker.location.x,singleSeeker.location.y,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),82)){
+                  Violent_Seeker.remove(singleSeeker);
+                  playerSCORE += singleSeeker.VALUE;
+                }
+                singleSeeker.move();
+                singleSeeker.display();
+              }
+              //Boss
+              for (int i = 0; i < Momma_Marble.size(); i++){
+                singleMarble = Momma_Marble.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleMarble.xPos,singleMarble.yPos,singleMarble.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleMarble.xPos,singleMarble.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleMarble.enemySize/2.01)){
+                  Momma_Marble.remove(singleMarble);
+                  playerSCORE += singleMarble.VALUE;
+                }
+                singleMarble.move();
+                singleMarble.display();
+              }
+            break;
+          }
+        break;
+        case 11: //Death Animation
+          black = 0;
+          BackWash();
+          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter);
+          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 1);
+          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 2);
+          explosionCounter *= 1.004;
+          if (ExplosionEnd(Fulcrum.location.x,Fulcrum.location.y,explosionCounter) || keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            explosionCounter = 1;
+            programState = 1;
+            classicModeState++;
+            break;
+          }
+        break;
+        case 12: //Loser Screen
+          endClassicScreenBackground();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(150));
+          fill(c2);
+          text(EndGame,width/2,height/3);
+          textFont(classicBodyFont,ScaleFont(90));
+          fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+          text(GameReset,width/2,height/3 + ScaleFont(200));
+          fill(0,0,255);
+          text(playerSCORE,width/2,height/3 + ScaleFont(300));
+          if (keyPressed && key == ' '){
+            playerSCORE = 0;
+            programState = 0;
+            classicModeState = 0;
+            break;
+          }
+        break;
+        case 13: //Winner Screen
+          winClassicScreenBackground();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,height/13);
+          fill(c2);
+          text(WinningGame,width/2,height/3);
+          textFont(classicBodyFont,height/17);
+          fill(0,colorDelta1*100/PI,200 - colorDelta1*100/PI);
+          text(GameReset,width/2,height/3 + ScaleFont(150));
+          fill(0,0,255);
+          text(playerSCORE,width/2,height/3 + ScaleFont(250));
+          if (keyPressed && key == ' '){
+            adventureModeUnlocked = true;
+            programState = 0;
+            break;
+          }
+        break;
+      }
+    break;
+    case 2:  //Adventure Mode
+      switch (adventureModeState){
+        case 0:  //Solar System UI
+          switch (adventureModeWorldSelection){
+            case 1:  //World 1
+              //Red_Bricks
+            break;
+            case 2:  //World 2
+              //Purple_Saucers
+            break;
+            case 3:  //World 3
+              //Rainbow_Tracers
+            break;
+            case 4:  //World 4
+              //Violent_Seekers
+            break;
+            case 5:  //World 5
+              //Momma_Marble
+            break;
+          }
+        break;
+        case 1:  //Adventure Game
+          switch (adventureModeGame){
+            case 11:  //World 1, Level 1
+              //
+            break;
+            case 12:  //World 1, Level 2
+              //
+            break;
+            case 13:  //World 1, Level 3
+              //
+            break;
+            case 21:  //World 2, Level 1
+              //
+            break;
+            case 22:  //World 2, Level 2
+              //
+            break;
+            case 31:  //World 3, Level 1
+              //
+            break;
+            case 32:  //World 3, Level 2
+              //
+            break;
+            case 33:  //World 3, Level 3
+              //
+            break;
+            case 34:  //World 3, Level 4
+              //
+            break;
+            case 41:  //World 4, Level 1
+              //
+            break;
+            case 42:  //World 4, Level 2
+              //
+            break;
+            case 43:  //World 4, Level 3
+              //
+            break;
+            case 44:  //World 4, Level 4
+              //
+            break;
+            case 45:  //World 4, Level 5
+              //
+            break;
+            case 51:  //World 5, Level 1
+              //
+            break;
+            case 52:  //World 5, Level 2
+              //
+            break;
+            case 53:  //World 5, Level 3
+              //
+            break;
+          }
+        break;
+        case 2:  //Death Animation
+          //
+        break;
+        case 3:  //Loser Screen
+          //
+        break;
+        case 4:  //Winner Screen
+          //
+        break;
+        case 5:  //Jet Upgrades
+          //
+        break;
+        case 6:  //Storyline
+          //
+        break;
+      }
+    break;
+    case 3:  //Pause Menu
+      //
+    break;
+    case 4:  //Transition Animations (global)
+      //
+    break;
+  }
+}

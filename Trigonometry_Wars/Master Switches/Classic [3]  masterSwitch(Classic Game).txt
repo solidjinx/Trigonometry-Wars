@@ -1,0 +1,288 @@
+        break;                   [...]
+        case 10: //Classic Game
+          switch (classicModeGame){
+            case 1:  //Round 1
+              black = 0;
+              JetWash();
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 7;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+            break;
+            case 2:  //Round 2
+              black = 0;
+              JetWash();
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 7;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+              //enemy level 3
+              for (int i = 0; i < Rainbow_Tracer.size(); i++){
+                singleTracer = Rainbow_Tracer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleTracer.enemySize/2)){
+                  Rainbow_Tracer.remove(singleTracer);
+                  playerSCORE += singleTracer.VALUE;
+                }
+                singleTracer.move();
+                singleTracer.display();
+              }
+            break;
+            case 3:  //Round 3
+              black = 0;
+              JetWash();
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 7;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+              //enemy level 3
+              for (int i = 0; i < Rainbow_Tracer.size(); i++){
+                singleTracer = Rainbow_Tracer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleTracer.enemySize/2)){
+                  Rainbow_Tracer.remove(singleTracer);
+                  playerSCORE += singleTracer.VALUE;
+                }
+                singleTracer.move();
+                singleTracer.display();
+              }
+              //enemy level 4
+              for (int i = 0; i < Violent_Seeker.size(); i++){
+                singleSeeker = Violent_Seeker.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSeeker.location.x,singleSeeker.location.y,76)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSeeker.location.x,singleSeeker.location.y,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),82)){
+                  Violent_Seeker.remove(singleSeeker);
+                  playerSCORE += singleSeeker.VALUE;
+                }
+                singleSeeker.move();
+                singleSeeker.display();
+              }
+            break;
+            case 4:  //Round 4 (Boss)
+              black = 0;
+              JetWash();
+              if (Momma_Marble.size() == 0){
+                Fulcrum.gravityWell = false;
+              }
+              else {
+                Fulcrum.gravityWell = true;
+              }
+              Fulcrum.move();
+              Fulcrum.display();
+              ////Checks for Boss status, then detects level progression first, player death, enemy death, then moves/displays enemies
+              if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+                playerSCORE *= 2;
+                programState = 1;
+                classicModeState = 13;
+                break;
+              }
+              //enemy level 1
+              for (int i = 0; i < Red_Brick.size(); i++){
+                singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                  playerSCORE += singleBrick.VALUE;
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              //enemy level 2
+              for (int i = 0; i < Purple_Saucer.size(); i++){
+                singleSaucer = Purple_Saucer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleSaucer.enemySize/2)){
+                  Purple_Saucer.remove(singleSaucer);
+                  playerSCORE += singleSaucer.VALUE;
+                }
+                singleSaucer.move();
+                singleSaucer.display();
+              }
+              //enemy level 3
+              for (int i = 0; i < Rainbow_Tracer.size(); i++){
+                singleTracer = Rainbow_Tracer.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleTracer.enemySize/2)){
+                  Rainbow_Tracer.remove(singleTracer);
+                  playerSCORE += singleTracer.VALUE;
+                }
+                singleTracer.move();
+                singleTracer.display();
+              }
+              //enemy level 4
+              for (int i = 0; i < Violent_Seeker.size(); i++){
+                singleSeeker = Violent_Seeker.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSeeker.location.x,singleSeeker.location.y,76)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleSeeker.location.x,singleSeeker.location.y,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),82)){
+                  Violent_Seeker.remove(singleSeeker);
+                  playerSCORE += singleSeeker.VALUE;
+                }
+                singleSeeker.move();
+                singleSeeker.display();
+              }
+              //Boss
+              for (int i = 0; i < Momma_Marble.size(); i++){
+                singleMarble = Momma_Marble.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleMarble.xPos,singleMarble.yPos,singleMarble.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  classicModeGame = 0;
+                  break;
+                }
+                if (mousePressed && killDetection(singleMarble.xPos,singleMarble.yPos,Fulcrum.location.x,Fulcrum.location.y,Fulcrum.acceleration.heading(),singleMarble.enemySize/2.01)){
+                  Momma_Marble.remove(singleMarble);
+                  playerSCORE += singleMarble.VALUE;
+                }
+                singleMarble.move();
+                singleMarble.display();
+              }
+            break;
+          }
+        break;
+        case 11: //Death Animation                    [...]

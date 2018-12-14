@@ -1,0 +1,677 @@
+//void masterSwitch(){
+//  switch (programState){
+//    case 0:    //start menu
+//      switch (classicScreen){
+//        case 0:    //Main Menu
+//          classicScreenBackground();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(90));
+//          fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+//          text(SubTitle,width/2,height/6 + ScaleFont(160));
+//          textFont(classicBodyFont,ScaleFont(40));
+//          fill(0,200,0);
+//          text(InstructionsP00,width - ScaleFont(400),height - ScaleFont(60));
+//          text(InstructionsP01,ScaleFont(450),height - ScaleFont(60));
+//          if (keyPressed && key == '1'){
+//            Reroll(0,0,0,0,0);
+//            classicScreen = 1;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 1:    //instructions, page 1
+//          classicScreenBackground();
+//          Fulcrum.tangentialForce = 1;
+//          Fulcrum.topspeed = 20;
+//          Fulcrum.move();
+//          Fulcrum.display();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP11,width/2,height/6 + ScaleFont(140));
+//          textFont(classicBodyFont,ScaleFont(60));
+//          fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+//          text(InstructionsP12,width/2,height/6 + ScaleFont(190));
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP13,width/2,height/6 + ScaleFont(240));
+//          text(InstructionsP14,width/2,height/6 + ScaleFont(280));
+//          text(InstructionsP15,width - ScaleFont(440),height - ScaleFont(60));
+//          text(InstructionsP16,ScaleFont(350),height - ScaleFont(60));
+//          if (keyPressed && key == '2'){
+//            Fulcrum.tangentialForce = 0.5;
+//            Fulcrum.topspeed = 4;
+//            Fulcrum.location.x = width/2;
+//            Fulcrum.location.y = height/2;
+//            Reroll(1,0,0,0,0);
+//            classicScreen = 2;
+//            break;
+//          }
+//          else if (keyPressed && keyCode == 'q' || keyCode == 'Q'){
+//            Fulcrum.tangentialForce = 0.5;
+//            Fulcrum.topspeed = 4;
+//            Fulcrum.location.x = width/2;
+//            Fulcrum.location.y = height/2;
+//            Reroll(0,0,0,0,0);
+//            classicScreen = 0;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            Fulcrum.tangentialForce = 0.5;
+//            Fulcrum.topspeed = 4;
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 2:    //instructions, page 2
+//          classicScreenBackground();
+//          Red_Brick singleBrick = Red_Brick.get(0);
+//          singleBrick.enemySize = 100;
+//          singleBrick.move();
+//          singleBrick.display();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP21,width/2,height/6 + ScaleFont(140));
+//          text(InstructionsP22,width/2,height/6 + ScaleFont(190));
+//          text(InstructionsP23,width/2,height/6 + ScaleFont(240));
+//          text(InstructionsP24,width - ScaleFont(500),height - ScaleFont(60));
+//          text(InstructionsP25,ScaleFont(350),height - ScaleFont(60));
+//          if (keyPressed && key == '3'){
+//            singleBrick.enemySize = 40;
+//            Red_Brick.remove(singleBrick);
+//            Reroll(0,1,0,0,0);
+//            classicScreen = 3;
+//            break;
+//          }
+//          else if (keyPressed && keyCode == 'w' || keyCode == 'W'){
+//            singleBrick.enemySize = 40;
+//            Red_Brick.remove(singleBrick);
+//            Reroll(0,0,0,0,0);
+//            classicScreen = 1;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            singleBrick.enemySize = 40;
+//            Red_Brick.remove(singleBrick);
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 3:    //instructions, page 3
+//          classicScreenBackground();
+//          Purple_Saucer singleSaucer = Purple_Saucer.get(0);
+//          singleSaucer.saucerSpeed = 10;
+//          singleSaucer.enemySize = 120;
+//          singleSaucer.move();
+//          singleSaucer.display();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP31,width/2,height/6 + ScaleFont(140));
+//          text(InstructionsP32,width/2,height/6 + ScaleFont(190));
+//          text(InstructionsP33,width - ScaleFont(470),height - ScaleFont(60));
+//          text(InstructionsP34,ScaleFont(350),height - ScaleFont(60));
+//          if (keyPressed && key == '4'){
+//            singleSaucer.saucerSpeed = 2;
+//            singleSaucer.enemySize = 80;
+//            Purple_Saucer.remove(singleSaucer);
+//            Reroll(0,0,1,0,0);
+//            classicScreen = 4;
+//            break;
+//          }
+//          else if (keyPressed && keyCode == 'e' || keyCode == 'E'){
+//            singleSaucer.saucerSpeed = 2;
+//            singleSaucer.enemySize = 80;
+//            Purple_Saucer.remove(singleSaucer);
+//            Reroll(1,0,0,0,0);
+//            classicScreen = 2;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            singleSaucer.saucerSpeed = 2;
+//            singleSaucer.enemySize = 80;
+//            Purple_Saucer.remove(singleSaucer);
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 4:    //instructions, page 4
+//          classicScreenBackground();
+//          Rainbow_Tracer singleTracer = Rainbow_Tracer.get(0);
+//          singleTracer.tracerSpeed = 24;
+//          singleTracer.enemySize = 120;
+//          singleTracer.move();
+//          singleTracer.display();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP41,width/2,height/6 + ScaleFont(140));
+//          text(InstructionsP42,width/2,height/6 + ScaleFont(190));
+//          text(InstructionsP43,width/2,height/6 + ScaleFont(240));
+//          text(InstructionsP44,width - ScaleFont(450),height - ScaleFont(60));
+//          text(InstructionsP45,350,height - ScaleFont(60));
+//          if (keyPressed && key == '5'){
+//            singleTracer.tracerSpeed = 6;
+//            singleTracer.enemySize = 60;
+//            Rainbow_Tracer.remove(singleTracer);
+//            Reroll(0,0,0,1,0);
+//            classicScreen = 5;
+//            break;
+//          }
+//          else if (keyPressed && keyCode == 'r' || keyCode == 'R'){
+//            singleTracer.tracerSpeed = 6;
+//            singleTracer.enemySize = 60;
+//            Rainbow_Tracer.remove(singleTracer);
+//            Reroll(0,1,0,0,0);
+//            classicScreen = 3;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            singleTracer.tracerSpeed = 6;
+//            singleTracer.enemySize = 60;
+//            Rainbow_Tracer.remove(singleTracer);
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 5:    //instructions, page 5
+//          classicScreenBackground();
+//          Violent_Seeker singleSeeker = Violent_Seeker.get(0);
+//          singleSeeker.seekerTopSpeed = 8;
+//          singleSeeker.move();
+//          singleSeeker.display();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP51,width/2,height/6 + ScaleFont(140));
+//          text(InstructionsP52,width/2,height/6 + ScaleFont(190));
+//          text(InstructionsP53,width/2,height/6 + ScaleFont(240));
+//          text(InstructionsP54,width - ScaleFont(450),height - ScaleFont(60));
+//          text(InstructionsP55,ScaleFont(350),height - ScaleFont(60));
+//          if (keyPressed && key == '6'){
+//            singleSeeker.seekerTopSpeed = 4;
+//            Violent_Seeker.remove(singleSeeker);
+//            Reroll(0,0,0,0,1);
+//            classicScreen = 6;
+//            break;
+//          }
+//          else if (keyPressed && keyCode == 't' || keyCode == 'T'){
+//            singleSeeker.seekerTopSpeed = 4;
+//            Violent_Seeker.remove(singleSeeker);
+//            Reroll(0,0,1,0,0);
+//            classicScreen = 4;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            singleSeeker.seekerTopSpeed = 4;
+//            Violent_Seeker.remove(singleSeeker);
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 6:    //instructions, page 6
+//          classicScreenBackground();
+//          Momma_Marble singleMarble = Momma_Marble.get(0);
+//          singleMarble.move();
+//          singleMarble.display();
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,ScaleFont(160));
+//          fill(c2);
+//          text(Title,width/2,height/6);
+//          textFont(classicBodyFont,ScaleFont(45));
+//          fill(0,200,0);
+//          text(InstructionsP61,width/2,height/6 + ScaleFont(140));
+//          text(InstructionsP62,width - ScaleFont(400),height - ScaleFont(60));
+//          text(InstructionsP63,ScaleFont(350),height - ScaleFont(60));
+//          if (keyPressed && keyCode == 'y' || keyCode == 'Y'){
+//            Momma_Marble.remove(singleMarble);
+//            Reroll(0,0,0,1,0);
+//            classicScreen = 5;
+//            break;
+//          }
+//          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+//            Momma_Marble.remove(singleMarble);
+//            Reroll(42,8,0,0,0);
+//            classicScreen = 7;
+//            break;
+//          }
+//        break;
+//        case 7:    //countdown
+//          background(0);
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,Average(width,height)*0.6);
+//          fill(0,F2B(255),0);
+//          text(3,width/2,height/2);
+//          delay(1000);
+//          classicScreen = 8;
+//        break;
+//        case 8:    //countdown
+//          background(0);
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,Average(width,height)*0.4);
+//          fill(F2B(255),F2B(255),0);
+//          text(2,width/2,height/2);
+//          delay(1000);
+//          classicScreen = 9;
+//        break;
+//        case 9:    //countdown
+//          background(0);
+//          rectMode(CENTER);
+//          textAlign(CENTER,CENTER);
+//          textFont(classicTitleFont,Average(width,height)*0.3);
+//          fill(F2B(255),0,0);
+//          text(1,width/2,height/2);
+//          delay(500);
+//          if (classicMode == 0 && playerSCORE > 0){
+//            Reroll(42,16,8,0,0);
+//            classicMode = 1;
+//            programState = 2;
+//            break;
+//          }
+//          else if (classicMode == 1){
+//            Reroll(32,32,16,4,0);
+//            classicMode = 2;
+//            programState = 2;
+//            break;
+//          }
+//          else if (classicMode == 2){
+//            Reroll(32,32,8,8,1);
+//            classicMode = 3;
+//            programState = 2;
+//            break;
+//          }
+//          Reroll(42,8,0,0,0);
+//          classicMode = 0;
+//          programState = 2;
+//        break;
+//        case 10:    //Fulcrum explosion animation
+//          black = 0;
+//          BackWash();
+//          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter);
+//          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 1);
+//          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 2);
+//          explosionCounter *= 1.004;
+//          if (ExplosionEnd(Fulcrum.location.x,Fulcrum.location.y,explosionCounter)){
+//            explosionCounter = 1;
+//            programState = 1;
+//            classicScreen = 0;
+//            classicMode = 0;
+//            break;
+//          }
+//        break;
+//      }
+//    break;    //programState = 0  break {Classic Mode "Tutorial"}
+//    case 1:    //Loser Screen
+//      endClassicScreenBackground();
+//      rectMode(CENTER);
+//      textAlign(CENTER,CENTER);
+//      textFont(classicTitleFont,ScaleFont(150));
+//      fill(c2);
+//      text(EndGame,width/2,height/3);
+//      textFont(classicBodyFont,ScaleFont(90));
+//      fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+//      text(GameReset,width/2,height/3 + ScaleFont(200));
+//      fill(0,0,255);
+//      text(playerSCORE,width/2,height/3 + ScaleFont(300));
+//      if (keyPressed && key == ' '){
+//        playerSCORE = 0;
+//        Reroll(42,8,0,0,0);
+//        classicScreen = 0;
+//        programState = 0;
+//        break;
+//      }
+//    break;    //programState = 1  break {Loser Screen}
+//    case 2:    //Classic Mode
+//      switch (classicMode){
+//        case 0:    //round 1
+//          ////PLAYER
+//          black = 0;
+//          JetWash();
+//          Fulcrum.move();
+//          Fulcrum.display();
+//          ////ENEMIES detect player death first, then enemy death, then moves/displays
+//          if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+//            playerSCORE *= 2;
+//            programState = 0;
+//            classicScreen = 7;
+//            break;
+//          }
+//          //enemy level 1
+//          for (int i = 0; i < Red_Brick.size(); i++){
+//            Red_Brick singleBrick = Red_Brick.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              Red_Brick.remove(singleBrick);
+//              playerSCORE += singleBrick.VALUE;
+//            }
+//            singleBrick.move();
+//            singleBrick.display();
+//          }
+//          //enemy level 2
+//          for (int i = 0; i < Purple_Saucer.size(); i++){
+//            Purple_Saucer singleSaucer = Purple_Saucer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              Purple_Saucer.remove(singleSaucer);
+//              playerSCORE += singleSaucer.VALUE;
+//            }
+//            singleSaucer.move();
+//            singleSaucer.display();
+//          }
+//        break;
+//        case 1:    //round 2
+//          ////PLAYER
+//          black = 0;
+//          JetWash();
+//          Fulcrum.move();
+//          Fulcrum.display();
+//          ////ENEMIES detect player death first, then enemy death, then moves/displays
+//          if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+//            playerSCORE *= 2;
+//            programState = 0;
+//            classicScreen = 7;
+//            break;
+//          }
+//          //enemy level 1
+//          for (int i = 0; i < Red_Brick.size(); i++){
+//            Red_Brick singleBrick = Red_Brick.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              Red_Brick.remove(singleBrick);
+//              playerSCORE += singleBrick.VALUE;
+//            }
+//            singleBrick.move();
+//            singleBrick.display();
+//          }
+//          //enemy level 2
+//          for (int i = 0; i < Purple_Saucer.size(); i++){
+//            Purple_Saucer singleSaucer = Purple_Saucer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              Purple_Saucer.remove(singleSaucer);
+//              playerSCORE += singleSaucer.VALUE;
+//            }
+//            singleSaucer.move();
+//            singleSaucer.display();
+//          }
+//          //enemy level 3
+//          for (int i = 0; i < Rainbow_Tracer.size(); i++){
+//            Rainbow_Tracer singleTracer = Rainbow_Tracer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+//              Rainbow_Tracer.remove(singleTracer);
+//              playerSCORE += singleTracer.VALUE;
+//            }
+//            singleTracer.move();
+//            singleTracer.display();
+//          }
+//        break;
+//        case 2:    //round 3
+//          ////PLAYER
+//          black = 0;
+//          JetWash();
+//          Fulcrum.move();
+//          Fulcrum.display();
+//          ////ENEMIES detect player death first, then enemy death, then moves/displays
+//          if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+//            playerSCORE *= 2;
+//            programState = 0;
+//            classicScreen = 7;
+//            break;
+//          }
+//          //enemy level 1
+//          for (int i = 0; i < Red_Brick.size(); i++){
+//            Red_Brick singleBrick = Red_Brick.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              Red_Brick.remove(singleBrick);
+//              playerSCORE += singleBrick.VALUE;
+//            }
+//            singleBrick.move();
+//            singleBrick.display();
+//          }
+//          //enemy level 2
+//          for (int i = 0; i < Purple_Saucer.size(); i++){
+//            Purple_Saucer singleSaucer = Purple_Saucer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              Purple_Saucer.remove(singleSaucer);
+//              playerSCORE += singleSaucer.VALUE;
+//            }
+//            singleSaucer.move();
+//            singleSaucer.display();
+//          }
+//          //enemy level 3
+//          for (int i = 0; i < Rainbow_Tracer.size(); i++){
+//            Rainbow_Tracer singleTracer = Rainbow_Tracer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+//              Rainbow_Tracer.remove(singleTracer);
+//              playerSCORE += singleTracer.VALUE;
+//            }
+//            singleTracer.move();
+//            singleTracer.display();
+//          }
+//          //enemy level 4
+//          for (int i = 0; i < Violent_Seeker.size(); i++){
+//            Violent_Seeker singleSeeker = Violent_Seeker.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSeeker.location.x,singleSeeker.location.y,76)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleSeeker.location.x,singleSeeker.location.y,82)){
+//              Violent_Seeker.remove(singleSeeker);
+//              playerSCORE += singleSeeker.VALUE;
+//            }
+//            singleSeeker.move();
+//            singleSeeker.display();
+//          }
+//        break;
+//        case 3:    //round 4 (boss)
+//          ////PLAYER
+//          black = 0;
+//          JetWash();
+//          if (Momma_Marble.size() == 0){
+//            Fulcrum.gravityWell = false;
+//          }
+//          else {
+//            Fulcrum.gravityWell = true;
+//          }
+//          Fulcrum.move();
+//          Fulcrum.display();
+//          ////ENEMIES detect player death first, then enemy death, then moves/displays
+//          if (playerProgression(Red_Brick.size(),Purple_Saucer.size(),Rainbow_Tracer.size(),Violent_Seeker.size(),Momma_Marble.size())){
+//            playerSCORE *= 2;
+//            Reroll(42,8,0,0,0);
+//            programState = 3;
+//            classicScreen = 0;
+//            classicMode = 0;
+//            break;
+//          }
+//          //enemy level 1
+//          for (int i = 0; i < Red_Brick.size(); i++){
+//            Red_Brick singleBrick = Red_Brick.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+//              Red_Brick.remove(singleBrick);
+//              playerSCORE += singleBrick.VALUE;
+//            }
+//            singleBrick.move();
+//            singleBrick.display();
+//          }
+//          //enemy level 2
+//          for (int i = 0; i < Purple_Saucer.size(); i++){
+//            Purple_Saucer singleSaucer = Purple_Saucer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleSaucer.xPos,singleSaucer.yPos,singleSaucer.enemySize/2)){
+//              Purple_Saucer.remove(singleSaucer);
+//              playerSCORE += singleSaucer.VALUE;
+//            }
+//            singleSaucer.move();
+//            singleSaucer.display();
+//          }
+//          //enemy level 3
+//          for (int i = 0; i < Rainbow_Tracer.size(); i++){
+//            Rainbow_Tracer singleTracer = Rainbow_Tracer.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleTracer.xPos,singleTracer.yPos,singleTracer.enemySize/2)){
+//              Rainbow_Tracer.remove(singleTracer);
+//              playerSCORE += singleTracer.VALUE;
+//            }
+//            singleTracer.move();
+//            singleTracer.display();
+//          }
+//          //enemy level 4
+//          for (int i = 0; i < Violent_Seeker.size(); i++){
+//            Violent_Seeker singleSeeker = Violent_Seeker.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleSeeker.location.x,singleSeeker.location.y,76)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleSeeker.location.x,singleSeeker.location.y,82)){
+//              Violent_Seeker.remove(singleSeeker);
+//              playerSCORE += singleSeeker.VALUE;
+//            }
+//            singleSeeker.move();
+//            singleSeeker.display();
+//          }
+//          //Boss
+//          for (int i = 0; i < Momma_Marble.size(); i++){
+//            Momma_Marble singleMarble = Momma_Marble.get(i);
+//            if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleMarble.xPos,singleMarble.yPos,singleMarble.enemySize/2)){
+//              programState = 0;
+//              classicScreen = 10;
+//              classicMode = 0;
+//              break;
+//            }
+//            if (mousePressed && killDetection(singleMarble.xPos,singleMarble.yPos,singleMarble.enemySize/2.01)){
+//              Momma_Marble.remove(singleMarble);
+//              playerSCORE += singleMarble.VALUE;
+//            }
+//            singleMarble.move();
+//            singleMarble.display();
+//          }
+//        break;
+//      }
+//    break;    //programState = 2  break {Classic Mode}
+//    case 3:    //winner screen
+//      winClassicScreenBackground();
+//      rectMode(CENTER);
+//      textAlign(CENTER,CENTER);
+//      textFont(classicTitleFont,height/13);
+//      fill(c2);
+//      text(WinningGame,width/2,height/3);
+//      textFont(classicBodyFont,height/17);
+//      fill(0,colorDelta1*100/PI,200 - colorDelta1*100/PI);
+//      text(GameReset,width/2,height/3 + ScaleFont(150));
+//      fill(0,0,255);
+//      text(playerSCORE,width/2,height/3 + ScaleFont(250));
+//      if (keyPressed && key == ' '){
+//        playerSCORE = 0;
+//        Reroll(42,8,0,0,0);
+//        classicScreen = 0;
+//        programState = 0;
+//        break;
+//      }
+//    break;    //programState = 3  break {Winner Screen}
+//    case 4:    //Adventure Mode UI
+//      //
+//    break;    //programState = 4 break {Adventure Mode}
+//  }
+//}

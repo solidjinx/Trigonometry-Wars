@@ -1,0 +1,20 @@
+        break;                    [..]
+        case 13: //Winner Screen
+          winClassicScreenBackground();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,height/13);
+          fill(c2);
+          text(WinningGame,width/2,height/3);
+          textFont(classicBodyFont,height/17);
+          fill(0,colorDelta1*100/PI,200 - colorDelta1*100/PI);
+          text(GameReset,width/2,height/3 + ScaleFont(150));
+          fill(0,0,255);
+          text(playerSCORE,width/2,height/3 + ScaleFont(250));
+          if (keyPressed && key == ' '){
+            adventureModeUnlocked = true;
+            programState = 0;
+            break;
+          }
+    break;
+    case 2:  //Adventure Mode                    [...]

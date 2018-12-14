@@ -1,0 +1,183 @@
+int programState;          ////Judges whether in title {0}, classicModeState {1}, adventureModeState {2}, Pause menu {3}, or Transition Animations (global) {4}
+
+int classicModeState;        //judges whether in tutorial {1-6}, Countdown {7-9}, classicModeGame {10}, death animation {11}, loser screen {12}, or winner screen {13}
+int classicModeGame;         //Judges whether in play -- Round 1 {1}, 2 {2}, 3 {3}, or 4 (boss) {4}
+
+int adventureModeState;           //Judges whether in Solar UI {0}, adventureModeWorldSelection {1}, Countdown {2-4}, adventureModeGame {5}, death animation {6}, loser screen {7}, winner screen {8}, Jet upgrades menu {9}, or Storyline {10}
+int adventureModeWorldSelection;  //Judges whether in World 1 {1}, 2 {2}, 3 {3}, 4 {4}, or 5 (boss) {5}
+int adventureModeGame;            //Judges whether in play -- World 1 {11-13}, World 2 {21-22}, World 3 {31-34}, World 4 {41-45}, World 5 {51-53}
+
+void masterSwitch(){
+  switch (programState){
+    case 0:  //Title
+      //
+    break;
+    case 1:  //Classic Mode
+      switch (classicModeState){
+        case 1:  //Tutorial
+          //page 1, Fulcrum
+        break;
+        case 2:  //Tutorial
+          //page 2, Red_Bricks
+        break;
+        case 3:  //Tutorial
+          //page 3, Purple_Saucers
+        break;
+        case 4:  //Tutorial
+          //page 4, Rainbow_Tracers
+        break;
+        case 5:  //Tutorial
+          //page 5, Violent_Seekers
+        break;
+        case 6:  //Tutorial
+          //page 6, Momma_Marble
+        break;
+        case 7:  //Countdown 3
+          //
+        break;
+        case 8:  //Countdown 2
+          //
+        break;
+        case 9:  //Countdown 1
+          //
+        break;
+        case 10: //Classic Game
+          switch (classicModeGame){
+            case 1:  //Round 1
+              //
+            break;
+            case 2:  //Round 2
+              //
+            break;
+            case 3:  //Round 3
+              //
+            break;
+            case 4:  //Round 4 (Boss)
+              //
+            break;
+          }
+        break;
+        case 11: //Death Animation
+          //
+        break;
+        case 12: //Loser Screen
+          //
+        break;
+        case 13: //Winner Screen
+          //
+        break;
+      }
+    break;
+    case 2:  //Adventure Mode
+      switch (adventureModeState){
+        case 0:  //Solar System UI
+          //
+        break;
+        case 1:  //Selected States
+          switch (adventureModeWorldSelection){
+            case 1:  //World 1
+              //Red_Bricks
+            break;
+            case 2:  //World 2
+              //Purple_Saucers
+            break;
+            case 3:  //World 3
+              //Rainbow_Tracers
+            break;
+            case 4:  //World 4
+              //Violent_Seekers
+            break;
+            case 5:  //World 5
+              //Momma_Marble
+            break;
+          }
+        break;
+        case 2:  //Countdown 3
+          //
+        break;
+        case 3:  //Countdown 2
+          //
+        break;
+        case 4:  //Countdown 1
+          //
+        break;
+        case 5:  //Adventure Game
+          switch (adventureModeGame){
+            case 11:  //World 1, Level 1
+              //
+            break;
+            case 12:  //World 1, Level 2
+              //
+            break;
+            case 13:  //World 1, Level 3
+              //
+            break;
+            case 21:  //World 2, Level 1
+              //
+            break;
+            case 22:  //World 2, Level 2
+              //
+            break;
+            case 31:  //World 3, Level 1
+              //
+            break;
+            case 32:  //World 3, Level 2
+              //
+            break;
+            case 33:  //World 3, Level 3
+              //
+            break;
+            case 34:  //World 3, Level 4
+              //
+            break;
+            case 41:  //World 4, Level 1
+              //
+            break;
+            case 42:  //World 4, Level 2
+              //
+            break;
+            case 43:  //World 4, Level 3
+              //
+            break;
+            case 44:  //World 4, Level 4
+              //
+            break;
+            case 45:  //World 4, Level 5
+              //
+            break;
+            case 51:  //World 5, Level 1
+              //
+            break;
+            case 52:  //World 5, Level 2
+              //
+            break;
+            case 53:  //World 5, Level 3
+              //
+            break;
+          }
+        break;
+        case 6:  //Death Animation
+          //
+        break;
+        case 7:  //Loser Screen
+          //
+        break;
+        case 8:  //Winner Screen
+          //
+        break;
+        case 9:  //Jet Upgrades
+          //
+        break;
+        case 10:  //Storyline
+          //
+        break;
+      }
+    break;
+    case 3:  //Pause Menu
+      //
+    break;
+    case 4:  //Transition Animations & Testing (global)
+      //
+    break;
+  }
+}

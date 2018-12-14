@@ -1,0 +1,21 @@
+        break;                    [...]
+        case 12: //Loser Screen
+          endClassicScreenBackground();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(150));
+          fill(c2);
+          text(EndGame,width/2,height/3);
+          textFont(classicBodyFont,ScaleFont(90));
+          fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+          text(GameReset,width/2,height/3 + ScaleFont(200));
+          fill(0,0,255);
+          text(playerSCORE,width/2,height/3 + ScaleFont(300));
+          if (keyPressed && key == ' '){
+            playerSCORE = 0;
+            programState = 0;
+            classicModeState = 0;
+            break;
+          }
+        break;
+        case 13: //Winner Screen                    [...]

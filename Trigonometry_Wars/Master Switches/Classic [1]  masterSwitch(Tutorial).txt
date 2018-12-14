@@ -1,0 +1,248 @@
+    break;                    [...]
+    case 1:  //Classic Mode
+      switch (classicModeState){
+        case 1:  //Tutorial
+          classicScreenBackground();
+          Fulcrum.move();
+          Fulcrum.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP11,width/2,height/6 + ScaleFont(140));
+          textFont(classicBodyFont,ScaleFont(60));
+          fill(colorDelta1*100/PI,200 - colorDelta1*100/PI,0);
+          text(InstructionsP12,width/2,height/6 + ScaleFont(190));
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP13,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP14,width/2,height/6 + ScaleFont(280));
+          text(InstructionsP15,width - ScaleFont(440),height - ScaleFont(60));
+          text(InstructionsP16,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '2'){
+            Reroll(1,0,0,0,0);
+            programState = 1;
+            classicModeState = 2;
+            break;
+          }
+          else if (keyPressed && keyCode == 'q' || keyCode == 'Q'){
+            Reroll(0,0,0,0,0);
+            programState = 0;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 2:  //Tutorial
+          classicScreenBackground();
+          Red_Brick singleBrick = Red_Brick.get(0);
+          singleBrick.enemySize = 100;
+          singleBrick.move();
+          singleBrick.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP21,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP22,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP23,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP24,width - ScaleFont(500),height - ScaleFont(60));
+          text(InstructionsP25,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '3'){
+            singleBrick.enemySize = 40;
+            Red_Brick.remove(singleBrick);
+            Reroll(0,1,0,0,0);
+            programState = 1;
+            classicModeState = 3;
+            break;
+          }
+          else if (keyPressed && keyCode == 'w' || keyCode == 'W'){
+            singleBrick.enemySize = 40;
+            Red_Brick.remove(singleBrick);
+            Reroll(0,0,0,0,0);
+            programState = 1;
+            classicModeState = 1;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            singleBrick.enemySize = 40;
+            Red_Brick.remove(singleBrick);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 3:  //Tutorial
+          classicScreenBackground();
+          Purple_Saucer singleSaucer = Purple_Saucer.get(0);
+          singleSaucer.saucerSpeed = 10;
+          singleSaucer.enemySize = 120;
+          singleSaucer.move();
+          singleSaucer.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP31,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP32,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP33,width - ScaleFont(470),height - ScaleFont(60));
+          text(InstructionsP34,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '4'){
+            singleSaucer.saucerSpeed = 2;
+            singleSaucer.enemySize = 80;
+            Purple_Saucer.remove(singleSaucer);
+            Reroll(0,0,1,0,0);
+            programState = 1;
+            classicModeState = 4;
+            break;
+          }
+          else if (keyPressed && keyCode == 'e' || keyCode == 'E'){
+            singleSaucer.saucerSpeed = 2;
+            singleSaucer.enemySize = 80;
+            Purple_Saucer.remove(singleSaucer);
+            Reroll(1,0,0,0,0);
+            programState = 1;
+            classicModeState = 2;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            singleSaucer.saucerSpeed = 2;
+            singleSaucer.enemySize = 80;
+            Purple_Saucer.remove(singleSaucer);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 4:  //Tutorial
+          classicScreenBackground();
+          Rainbow_Tracer singleTracer = Rainbow_Tracer.get(0);
+          singleTracer.tracerSpeed = 24;
+          singleTracer.enemySize = 120;
+          singleTracer.move();
+          singleTracer.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP41,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP42,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP43,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP44,width - ScaleFont(450),height - ScaleFont(60));
+          text(InstructionsP45,350,height - ScaleFont(60));
+          if (keyPressed && key == '5'){
+            singleTracer.tracerSpeed = 6;
+            singleTracer.enemySize = 60;
+            Rainbow_Tracer.remove(singleTracer);
+            Reroll(0,0,0,1,0);
+            programState = 1;
+            classicModeState = 5;
+            break;
+          }
+          else if (keyPressed && keyCode == 'r' || keyCode == 'R'){
+            singleTracer.tracerSpeed = 6;
+            singleTracer.enemySize = 60;
+            Rainbow_Tracer.remove(singleTracer);
+            Reroll(0,1,0,0,0);
+            programState = 1;
+            classicModeState = 3;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            singleTracer.tracerSpeed = 6;
+            singleTracer.enemySize = 60;
+            Rainbow_Tracer.remove(singleTracer);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 5:  //Tutorial
+          classicScreenBackground();
+          Violent_Seeker singleSeeker = Violent_Seeker.get(0);
+          singleSeeker.move();
+          singleSeeker.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP51,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP52,width/2,height/6 + ScaleFont(190));
+          text(InstructionsP53,width/2,height/6 + ScaleFont(240));
+          text(InstructionsP54,width - ScaleFont(450),height - ScaleFont(60));
+          text(InstructionsP55,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && key == '6'){
+            Violent_Seeker.remove(singleSeeker);
+            Reroll(0,0,0,0,1);
+            programState = 1;
+            classicModeState = 6;
+            break;
+          }
+          else if (keyPressed && keyCode == 't' || keyCode == 'T'){
+            Violent_Seeker.remove(singleSeeker);
+            Reroll(0,0,1,0,0);
+            programState = 1;
+            classicModeState = 4;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            Violent_Seeker.remove(singleSeeker);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 6:  //Tutorial
+          classicScreenBackground();
+          Momma_Marble singleMarble = Momma_Marble.get(0);
+          singleMarble.move();
+          singleMarble.display();
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,ScaleFont(160));
+          fill(c2);
+          text(Title,width/2,height/6);
+          textFont(classicBodyFont,ScaleFont(45));
+          fill(0,200,0);
+          text(InstructionsP61,width/2,height/6 + ScaleFont(140));
+          text(InstructionsP62,width - ScaleFont(400),height - ScaleFont(60));
+          text(InstructionsP63,ScaleFont(350),height - ScaleFont(60));
+          if (keyPressed && keyCode == 'y' || keyCode == 'Y'){
+            Momma_Marble.remove(singleMarble);
+            Reroll(0,0,0,1,0);
+            programState = 1;
+            classicModeState = 5;
+            break;
+          }
+          else if (keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            Momma_Marble.remove(singleMarble);
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 7;
+            break;
+          }
+        break;
+        case 7:  //Countdown 3                    [...]

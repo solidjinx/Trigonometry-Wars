@@ -1,0 +1,16 @@
+        break;                    [...]
+        case 11: //Death Animation
+          black = 0;
+          BackWash();
+          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter);
+          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 1);
+          FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 2);
+          explosionCounter *= 1.004;
+          if (ExplosionEnd(Fulcrum.location.x,Fulcrum.location.y,explosionCounter) || keyPressed && (keyCode == ENTER || keyCode == RETURN)){
+            explosionCounter = 1;
+            programState = 1;
+            classicModeState++;
+            break;
+          }
+        break;
+        case 12: //Loser Screen                    [...]

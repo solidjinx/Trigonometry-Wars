@@ -1,0 +1,59 @@
+        break;                    [...]
+        case 7:  //Countdown 3
+          background(0);
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,Average(width,height)*0.6);
+          fill(0,255,0);
+          text(3,width/2,height/2);
+          delay(1000);
+          classicModeState++;
+        break;
+        case 8:  //Countdown 2
+          background(0);
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,Average(width,height)*0.4);
+          fill(255,255,0);
+          text(2,width/2,height/2);
+          delay(1000);
+          classicModeState++;
+        break;
+        case 9:  //Countdown 1
+          background(0);
+          rectMode(CENTER);
+          textAlign(CENTER,CENTER);
+          textFont(classicTitleFont,Average(width,height)*0.3);
+          fill(255,0,0);
+          text(1,width/2,height/2);
+          delay(500);
+          //Checks Round 1, 2, 3, or no round completed, respectively
+          if (classicModeGame == 1 && playerSCORE > 0){
+            Reroll(42,16,8,0,0);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 2;
+            break;
+          }
+          else if (classicModeGame == 2){
+            Reroll(32,32,16,4,0);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 3;
+            break;
+          }
+          else if (classicModeGame == 3){
+            Reroll(32,32,8,8,1);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 4;
+            break;
+          }
+          else {
+            Reroll(42,8,0,0,0);
+            programState = 1;
+            classicModeState = 10;
+            classicModeGame = 1;
+          }
+        break;
+        case 10: //Classic Game                    [...]
