@@ -118,7 +118,7 @@ void draw(){
 void RollGraphics(){
   CursorTexture = loadImage("Cursor.png");
   
-  classicCountdown3 = loadImage("Classic Countdown 3.png");
+  classicCountdown3 = loadImage("Images\\Classic Countdown 3.png");
   classicCountdown2 = loadImage("Classic Countdown 2.png");
   classicCountdown1 = loadImage("Classic Countdown 1.png");
   ClassicPlayButton = loadImage("Classic Start Button.png");
