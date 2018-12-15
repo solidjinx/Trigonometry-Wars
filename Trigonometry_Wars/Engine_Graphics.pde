@@ -320,6 +320,19 @@ void PlanetLabel(String Label, float xCenter, float yCenter, color Panel){
   popStyle();
 }
 
+void MoonLabel(String Label, float xCenter, float yCenter, color Panel){
+  pushStyle();
+  rectMode(CORNER);
+  textMode(MODEL);
+  strokeWeight(2);
+  stroke(Panel,88);
+  fill(Panel,5);
+  rect(xCenter + 100,yCenter,200,250);
+  fill(255);
+  text(Label,xCenter + 100,yCenter,200,250);
+  popStyle();
+}
+
 boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight){
   if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitWidth,hitHeight),2)){
     return true;
