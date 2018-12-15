@@ -322,15 +322,16 @@ void PlanetLabel(String Label, float xCenter, float yCenter, color Panel){
 
 void MoonLabel(String Label, float xCenter, float yCenter, color Panel){
   pushStyle();
-  rectMode(CORNER);
+  rectMode(CORNERS);
   textMode(MODEL);
   strokeWeight(2);
   stroke(Panel,88);
   fill(Panel,5);
-  rect(xCenter + 100,yCenter,200,250);
+  rect(0,0,width,height/8);
   fill(255);
-  text(Label,xCenter + 100,yCenter,200,250);
+  text(Label,0,0,width,height/8);
   popStyle();
+  //for preview animation
 }
 
 boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight){
