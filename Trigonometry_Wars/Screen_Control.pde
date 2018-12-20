@@ -35,7 +35,6 @@ void masterSwitch(){
   switch (programState){
     case 0:  //Title
       classicScreenBackground();
-      //VortexAnimator();
       NavButton("Classic",Divide(width,2) + 250,height - (300 + Divide(height,8)),300,300,"Click to Play Classic",0);
       NavButton("Adventure",Divide(width,2) - 250,height - (300 + Divide(height,8)),300,300,"Click to Play Adventure",0);
       NavButton("N/A",width - Divide(width,8),height - Divide(height,10),200,100,"Click for Classic Mode Tutorial!",1);
@@ -61,14 +60,14 @@ void masterSwitch(){
         break;
       }
       //For Classic Mode Play Button
-      else if (mousePressed && NavClicked(Divide(width,2) + 250,height - (300 + Divide(height,8)),300,300)){
+      else if (mousePressed && localTIMER >= 30 && NavClicked(Divide(width,2) + 250,height - (300 + Divide(height,8)),300,300)){
         localTIMER = 0;
         programState = 1;
         classicModeState = 7;
         break;
       }
       //For Adventure Mode Play Button
-      else if (mousePressed && NavClicked(Divide(width,2) - 250,height - (300 + Divide(height,8)),300,300)){
+      else if (mousePressed && localTIMER >= 30 && adventureModeUnlocked && NavClicked(Divide(width,2) - 250,height - (300 + Divide(height,8)),300,300)){
         localTIMER = 0;
         //Vortex(540);
         programState = 2;
@@ -76,7 +75,7 @@ void masterSwitch(){
         break;
       }
       //For Adventure Mode Storyline
-      else if (mousePressed && NavClicked(width/8,height - Divide(height,10),200,100)){
+      else if (mousePressed && localTIMER >= 120 && adventureModeUnlocked && NavClicked(width/8,height - Divide(height,10),200,100)){
         localTIMER = 0;
         programState = 2;
         adventureModeState = 10;
@@ -156,8 +155,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Purple_Saucer page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            //singleBrick.enemySize = 40;
-            Red_Brick.remove(singleBrick);
             Reroll(0,1,0,0,0);
             programState = 1;
             classicModeState = 3;
@@ -166,8 +163,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Fulcrum page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            //singleBrick.enemySize = 40;
-            Red_Brick.remove(singleBrick);
             Reroll(0,0,0,0,0);
             programState = 1;
             classicModeState = 1;
@@ -188,7 +183,6 @@ void masterSwitch(){
           NavButton("N/A",width/8,height - Divide(height,10),200,100,"Click to go back to the Red Bricks",-1);
           NavButton("Classic",width/2,height - Divide(height,6),300,300,"Click to Play Classic",0);
           Purple_Saucer singleSaucer = Purple_Saucer.get(0);
-          singleSaucer.saucerSpeed = 10;
           singleSaucer.enemySize = 120;
           singleSaucer.move();
           singleSaucer.display();
@@ -205,9 +199,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Rainbow_Tracer page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            //singleSaucer.saucerSpeed = 2;
-            //singleSaucer.enemySize = 80;
-            Purple_Saucer.remove(singleSaucer);
             Reroll(0,0,1,0,0);
             programState = 1;
             classicModeState = 4;
@@ -216,9 +207,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Red_Brick page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            //singleSaucer.saucerSpeed = 2;
-            //singleSaucer.enemySize = 80;
-            Purple_Saucer.remove(singleSaucer);
             Reroll(1,0,0,0,0);
             programState = 1;
             classicModeState = 2;
@@ -227,9 +215,6 @@ void masterSwitch(){
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
             localTIMER = 0;
-            //singleSaucer.saucerSpeed = 2;
-            //singleSaucer.enemySize = 80;
-            Purple_Saucer.remove(singleSaucer);
             programState = 1;
             classicModeState = 7;
             break;
@@ -259,8 +244,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Violent_Seeker page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            //singleTracer.enemySize = 60;
-            Rainbow_Tracer.remove(singleTracer);
             Reroll(0,0,0,1,0);
             programState = 1;
             classicModeState = 5;
@@ -269,8 +252,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Purple_Saucer page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            //singleTracer.enemySize = 60;
-            Rainbow_Tracer.remove(singleTracer);
             Reroll(0,1,0,0,0);
             programState = 1;
             classicModeState = 3;
@@ -279,8 +260,6 @@ void masterSwitch(){
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
             localTIMER = 0;
-            //singleTracer.enemySize = 60;
-            Rainbow_Tracer.remove(singleTracer);
             programState = 1;
             classicModeState = 7;
             break;
@@ -309,7 +288,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Momma_Marble page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Violent_Seeker.remove(singleSeeker);
             Reroll(0,0,0,0,1);
             programState = 1;
             classicModeState = 6;
@@ -318,7 +296,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Rainbow_Tracer page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Violent_Seeker.remove(singleSeeker);
             Reroll(0,0,1,0,0);
             programState = 1;
             classicModeState = 4;
@@ -327,7 +304,6 @@ void masterSwitch(){
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
             localTIMER = 0;
-            Violent_Seeker.remove(singleSeeker);
             programState = 1;
             classicModeState = 7;
             break;
@@ -353,7 +329,6 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Violent_Seeker page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Momma_Marble.remove(singleMarble);
             Reroll(0,0,0,1,0);
             programState = 1;
             classicModeState = 5;
@@ -362,7 +337,6 @@ void masterSwitch(){
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
             localTIMER = 0;
-            Momma_Marble.remove(singleMarble);
             programState = 1;
             classicModeState = 7;
             break;
@@ -370,7 +344,6 @@ void masterSwitch(){
           localTIMER++;
         break;
         case 7:  //Countdown 3
-          black = 0;
           BackWash();
           if (localTIMER == 0){
             pushStyle();
@@ -386,7 +359,6 @@ void masterSwitch(){
           localTIMER++;
         break;
         case 8:  //Countdown 2
-          black = 0;
           BackWash();
           if (localTIMER == 0){
             pushStyle();
@@ -402,7 +374,6 @@ void masterSwitch(){
           localTIMER++;
         break;
         case 9:  //Countdown 1
-          black = 0;
           BackWash();
           if (localTIMER == 0){
             pushStyle();
@@ -454,8 +425,9 @@ void masterSwitch(){
         case 10: //Classic Game
           switch (classicModeGame){
             case 1:  //Round 1
-              black = 0;
               JetWash();
+              //VortexWash();
+              //Enters Pause Menu (currently unavailable)
               if (keyPressed && key == 'p'){
                 SetSTATES(programState,classicModeState,classicModeGame,adventureModeState,adventureModeWorldSelection,adventureModeGame);
                 programState = 3;
@@ -514,8 +486,8 @@ void masterSwitch(){
               LevelProgressReadout(playerSCORE,330);
             break;
             case 2:  //Round 2
-              black = 0;
               JetWash();
+              //VortexWash();
               if (keyPressed && key == 'p'){
                 SetSTATES(programState,classicModeState,classicModeGame,adventureModeState,adventureModeWorldSelection,adventureModeGame);
                 programState = 3;
@@ -595,8 +567,8 @@ void masterSwitch(){
               LevelProgressReadout(playerSCORE,1350);
             break;
             case 3:  //Round 3
-              black = 0;
               JetWash();
+              //VortexWash();
               if (keyPressed && key == 'p'){
                 SetSTATES(programState,classicModeState,classicModeGame,adventureModeState,adventureModeWorldSelection,adventureModeGame);
                 programState = 3;
@@ -697,8 +669,8 @@ void masterSwitch(){
               LevelProgressReadout(playerSCORE,4020);
             break;
             case 4:  //Round 4 (Boss)
-              black = 0;
               JetWash();
+              //VortexWash();
               if (keyPressed && key == 'p'){
                 SetSTATES(programState,classicModeState,classicModeGame,adventureModeState,adventureModeWorldSelection,adventureModeGame);
                 programState = 3;
@@ -825,13 +797,13 @@ void masterSwitch(){
           }
         break;
         case 11: //Death Animation
-          black = 0;
           //if (localTIMER == 0){
           //  for (int i = 0; i < 3240; i++){
           //    Vortex.add(new Stars());
           //  }
           //}
           JetWash();
+          //VortexWash();
           FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter);
           FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 1);
           FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 2);
@@ -839,7 +811,7 @@ void masterSwitch(){
           if (ExplosionEnd(Fulcrum.location.x,Fulcrum.location.y,explosionCounter) || keyPressed && (keyCode == ENTER || keyCode == RETURN)){
             localTIMER = 0;
             explosionCounter = 1;
-            failedGame = int(random(FailedGame.length));
+            failedGame = int(round(random(FailedGame.length)));
             programState = 1;
             classicModeState++;
             break;
@@ -924,8 +896,8 @@ void masterSwitch(){
           pushMatrix();
           translate(width/2,height/2);
           scale(float(5)/9);
-          black = 0;
           BackWash();
+          //VortexWash();
           ////Sun
           sunColor = color(200 + colorMod,100,0);
           for (int i = 0; i < Sun.size(); i++){
@@ -991,44 +963,7 @@ void masterSwitch(){
             ThirdSystem singleWorld = planet3.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
               singleWorld.Settle();
-              ////assumes rainbow of width 999, max color intensity 255
-              switch (colorSwitch){
-                case 0:  //left third  {t >= 0 && t < 333}
-                  t++;
-                  T = (t*PI)/333;
-                  dR = 127*cos(T) + 127;
-                  dG = 127 - 127*cos(T);
-                  dB = 0;
-                  if (t == 333){
-                    colorSwitch = 1;
-                    break;
-                  }
-                break;
-                case 1:  //middle third  {t >= 333 && t < 666}
-                  t++;
-                  T = (t*PI)/333;
-                  dR = 0;
-                  dG = 127 - 127*cos(T);
-                  dB = 127*cos(T);
-                  if (t == 666){
-                    colorSwitch = 2;
-                    break;
-                  }
-                break;
-                case 2:  //right third  {t >= 666 && t <= 999}
-                  t++;
-                  T = (t*PI)/333;
-                  dR = 127 - 127*cos(T);
-                  dG = 0;
-                  dB = 127*cos(T);
-                  if (t > 999){
-                    t = 0;
-                    colorSwitch = 0;
-                    break;
-                  }
-                break;
-              }
-              PlanetLabel("World 3: Speedy Gonzolas",singleWorld.location.x,singleWorld.location.y,color(dR,dG,dB));
+              PlanetLabel("World 3: Speedy Gonzolas",singleWorld.location.x,singleWorld.location.y,RainbowGen());
               if (mousePressed){
                 adventureModeState = 1;
                 adventureModeWorldSelection = 3;
@@ -1087,8 +1022,8 @@ void masterSwitch(){
           switch (adventureModeWorldSelection){
             case 1:  //World 1
               //Red_Bricks
-              black = 0;
               BackWash();
+              //VortexWash();
               for (int i = 0; i < planet1.size(); i++){
                 FirstSystem singleWorld = planet1.get(i);
                 if (mousePressed && dist(mouseX,mouseY,0,0) <= 16*singleWorld.macroRadius){
@@ -1109,8 +1044,8 @@ void masterSwitch(){
             break;
             case 2:  //World 2
               //Purple_Saucers
-              black = 0;
               BackWash();
+              //VortexWash();
               for (int i = 0; i < planet2.size(); i++){
                 SecondSystem singleWorld = planet2.get(i);
                 if (mousePressed && dist(mouseX,mouseY,0,0) <= 16*singleWorld.macroRadius){
@@ -1131,8 +1066,8 @@ void masterSwitch(){
             break;
             case 3:  //World 3
               //Rainbow_Tracers
-              black = 0;
               BackWash();
+              //VortexWash();
               for (int i = 0; i < planet3.size(); i++){
                 ThirdSystem singleWorld = planet3.get(i);
                 if (mousePressed && dist(mouseX,mouseY,0,0) <= 16*singleWorld.macroRadius){
@@ -1153,8 +1088,8 @@ void masterSwitch(){
             break;
             case 4:  //World 4
               //Violent_Seekers
-              black = 0;
               BackWash();
+              //VortexWash();
               for (int i = 0; i < planet4.size(); i++){
                 FourthSystem singleWorld = planet4.get(i);
                 if (mousePressed && dist(mouseX,mouseY,0,0) <= 16*singleWorld.macroRadius){
@@ -1175,8 +1110,8 @@ void masterSwitch(){
             break;
             case 5:  //World 5
               //Momma_Marble
-              black = 0;
               BackWash();
+              //VortexWash();
               for (int i = 0; i < planet5.size(); i++){
                 FifthSystem singleWorld = planet5.get(i);
                 if (mousePressed && dist(mouseX,mouseY,0,0) <= 16*singleWorld.macroRadius){
@@ -1279,38 +1214,7 @@ void masterSwitch(){
       }
     break;
     case 3:  //Pause Menu
-      black = 0;
-      if (localTIMER == 0){
-        for (int i = 0; i < 3240; i++){
-          Vortex.add(new Stars());
-        }
-      }
-      JetWash();
-      FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter);
-      FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 1);
-      FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 2);
-      explosionCounter *= 1.004;
-      if (ExplosionEnd(Fulcrum.location.x,Fulcrum.location.y,explosionCounter) || keyPressed && (keyCode == ENTER || keyCode == RETURN)){
-        localTIMER = 0;
-        explosionCounter = 1;
-        failedGame = int(random(FailedGame.length));
-        programState = 1;
-        classicModeState++;
-        break;
-      }
-      if (classicModeGame == 1){
-        LevelProgressReadout(playerSCORE,330);
-      }
-      else if (classicModeGame == 2){
-        LevelProgressReadout(playerSCORE,1350);
-      }
-      else if (classicModeGame == 3){
-        LevelProgressReadout(playerSCORE,4020);
-      }
-      else if (classicModeGame == 4){
-        LevelProgressReadout(playerSCORE,10220);
-      }
-      localTIMER++;
+      //
     break;
     case 4:  //Transition Animations & Testing (global)
       //

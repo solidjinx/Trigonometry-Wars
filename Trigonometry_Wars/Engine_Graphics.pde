@@ -14,8 +14,6 @@ int dWMAX = 18;
 int dW;
 float vortexRadius = 1;
 float vortexAngle = 0;
-//master background
-int black = 0;
 //gradient color variables (changes bottom to top)
 int c1Red;
 int c1Green;
@@ -33,7 +31,7 @@ color c4;
 
 void JetWash(){
   if (classicModeState == 1){
-    stroke(round(dR),round(dG),round(dB));
+    stroke(RainbowGen());
     strokeWeight(10);
     //applies a two-way sliding scale to create random rainbow effect with changing laser width
     if (mousePressed){
@@ -43,7 +41,7 @@ void JetWash(){
         strokeIncrement = !strokeIncrement;
       }
       if (strokeIncrement){
-        dW = 5 + (mousepressedIncrement % dWCAP);
+        dW = 4 + (mousepressedIncrement % dWCAP);
       }
       else {
         dW = dWMAX - (mousepressedIncrement % dWCAP);
@@ -55,32 +53,9 @@ void JetWash(){
   }
   else {
     jetWash.beginDraw();
-    //VortexAnimator();
-    jetWash.background(black,10);
-    pushMatrix();
-    translate(width/2,height/2);
-    //for (int i = Vortex.size() - 1; i >= 0; i--){
-    //  Stars singleStar = Vortex.get(i);
-    //  if (dist(0,0,singleStar.xPos,singleStar.yPos) >= dist(0,0,width,height)){
-    //    Vortex.remove(singleStar);
-    //    if (classicModeState == 11){
-    //      singleStar.radial /= 20;
-    //    }
-    //    else {
-    //      Vortex.add(new Stars());
-    //    }
-    //  }
-    //  singleStar.move();
-    //  if (Fulcrum.gravityWell){
-    //    singleStar.display(int(pow(-1,i)),color(int(random(180,256)),int(random(200,256)),int(random(220,256))));
-    //  }
-    //  else {
-    //    singleStar.display(1,color(int(random(180,256)),int(random(200,256)),int(random(220,256))));
-    //  }
-    //}
-    popMatrix();
+    jetWash.background(0,10);
     if (classicModeState != 11){
-      jetWash.stroke(round(dR),round(dG),round(dB));
+      jetWash.stroke(RainbowGen());
       jetWash.strokeWeight(10);
       //applies a two-way sliding scale to create random rainbow effect with changing laser width
       if (mousePressed){
@@ -90,7 +65,7 @@ void JetWash(){
           strokeIncrement = !strokeIncrement;
         }
         if (strokeIncrement){
-          dW = 5 + (mousepressedIncrement % dWCAP);
+          dW = 4 + (mousepressedIncrement % dWCAP);
         }
         else {
           dW = dWMAX - (mousepressedIncrement % dWCAP);
@@ -103,12 +78,64 @@ void JetWash(){
     //outputs jetWash PGraphics variable to renderer
     image(jetWash,width/2,height/2);
   }
-  
-  ////assumes rainbow of width 999, max color intensity 255
+}
+
+void BackWash(){
+  pushStyle();
+  imageMode(CORNERS);
+  backWash.beginDraw();
+  backWash.background(0,TAU);
+  backWash.endDraw();
+  //outputs backWash PGraphics variable to renderer
+  image(backWash,-width,-height,width,height);
+  popStyle();
+}
+
+void VortexWash(){
+  if (programState != 2){
+    pushMatrix();
+    translate(width/2,height/2);
+    for (int i = Vortex.size() - 1; i >= 0; i--){
+      Stars singleStar = Vortex.get(i);
+      if (dist(0,0,singleStar.xPos,singleStar.yPos) > dist(0,0,width,height)){
+        Vortex.remove(singleStar);
+        if (classicModeState == 11){
+          singleStar.radial /= 20;
+        }
+        else {
+          Vortex.add(new Stars());
+        }
+      }
+      singleStar.move();
+      if (Fulcrum.gravityWell){
+        singleStar.display(int(pow(-1,i)),color(255,round(random(75,100))));
+      }
+      else {
+        singleStar.display(1,color(255,round(random(75,100))));
+      }
+    }
+    popMatrix();
+  }
+  else {
+    for (int i = 0; i < Vortex.size(); i++){
+      Stars singleStar = Vortex.get(i);
+      if (singleStar.lifeSpan == 0){
+        Vortex.remove(singleStar);
+        Vortex.add(new Stars());
+      }
+      else {
+        singleStar.starField(color(255,round(random(60,100))));
+      }
+    }
+  }
+}
+
+color RainbowGen(){
+  ////assumes rainbow of width 999, split in thirds, max color intensity 255
   switch (colorSwitch){
     case 0:  //left third  {t >= 0 && t < 333}
       t++;
-      T = (t*PI)/333;
+      T = PI*Divide(t,333);
       dR = 127*cos(T) + 127;
       dG = 127 - 127*cos(T);
       dB = 0;
@@ -119,7 +146,7 @@ void JetWash(){
     break;
     case 1:  //middle third  {t >= 333 && t < 666}
       t++;
-      T = (t*PI)/333;
+      T = PI*Divide(t,333);
       dR = 0;
       dG = 127 - 127*cos(T);
       dB = 127*cos(T);
@@ -130,7 +157,7 @@ void JetWash(){
     break;
     case 2:  //right third  {t >= 666 && t <= 999}
       t++;
-      T = (t*PI)/333;
+      T = PI*Divide(t,333);
       dR = 127 - 127*cos(T);
       dG = 0;
       dB = 127*cos(T);
@@ -141,49 +168,14 @@ void JetWash(){
       }
     break;
   }
-  //eliminates ghosting
-  black += 1 % 6;
-}
-
-void BackWash(){
-  pushStyle();
-  imageMode(CORNERS);
-  backWash.beginDraw();
-  backWash.background(black,TAU);
-  if (programState == 2){
-    for (int i = 0; i < Vortex.size(); i++){
-      Stars singleStar = Vortex.get(i);
-      if (singleStar.lifeSpan == 0){
-        Vortex.remove(singleStar);
-        Vortex.add(new Stars());
-      }
-      else {
-        singleStar.starField(color(int(random(180,256)),int(random(200,256)),int(random(220,256))));
-      }
-    }
-  }
-  backWash.endDraw();
-  //outputs backWash PGraphics variable to renderer
-  image(backWash,-width,-height,width,height);
-  popStyle();
-  
-  //eliminates ghosting
-  black += 1 % 6;
-}
-
-float VortexCalibratorX(float translation, float centralAngle){
-  return translation*cos(centralAngle);
-}
-
-float VortexCalibratorY(float translation, float centralAngle){
-  return translation*sin(centralAngle);
+  return color(dR,dG,dB);
 }
 
 PImage[] VortexGIF = new PImage[58];
 //Vortex GIF frames
 void VortexLoader(){
   for (int i = 0; i < 58; i++){
-    VortexGIF[i] = loadImage("vFrame" + i + ".png");
+    VortexGIF[i] = loadImage("Textures\\Vortex-GIF\\vFrame" + i + ".png");
   }
 }
 
@@ -208,18 +200,15 @@ void FulcrumDeathAnimation(float xlocation, float ylocation, float Radial){
   popMatrix();
 }
 
-String[] LevelProgress(int currentScore, int maxScore){
-  String[] progressPercentage = new String[2];
+String LevelProgress(int currentScore, int maxScore){
   float slotZero = Divide(currentScore,maxScore);
   slotZero *= 100;
-  progressPercentage[0] = str(DigitSplice(slotZero,3));
-  progressPercentage[1] = "%";
-  return progressPercentage;
+  return str(DigitSplice(slotZero,3));
 }
 
-color c5Modifier(String[] progressPercentage){
+color c5Modifier(String progressPercentage){
   //Map function relates a point on one axis to a point on another axis one-to-one <----> map(float to map, min original, max original, min target, max target)
-  float colorTimer = map(float(progressPercentage[0]),0,100,0,255);
+  float colorTimer = map(float(progressPercentage),0,100,0,255);
   return color(255 - colorTimer,colorTimer,0);
 }
 
@@ -231,7 +220,7 @@ void LevelProgressReadout(int currentScore, int maxScore){
   textAlign(CENTER,CENTER);
   textFont(classicTitleFont,ScaleFont(90));
   fill(c5Modifier(LevelProgress(currentScore,maxScore)),50);
-  text(LevelProgress(currentScore,maxScore)[0] + LevelProgress(currentScore,maxScore)[1],0,ScaleFont(90));
+  text(LevelProgress(currentScore,maxScore) + "%",0,ScaleFont(90));
   popStyle();
   popMatrix();
 }
@@ -400,26 +389,27 @@ class Stars{
     radial = random(dist(0,0,width,height));
     theta = random(TAU);
     size = random(1,2);
-    xPos = VortexCalibratorX(radial,theta);
-    yPos = VortexCalibratorY(radial,theta);
+    xPos = radial*cos(theta);
+    yPos = radial*sin(theta);
     
     lifeSpan = ceil(random(pow(sqrt(radial),radial)));
   }
 
   ////Class methods
   void move(){
-    xPos = VortexCalibratorX(radial,theta);
-    yPos = VortexCalibratorY(radial,theta);
+    xPos = radial*cos(theta);
+    yPos = radial*sin(theta);
     radial *= 1.008;
   }
 
   void display(int Mod, color Filler){
     pushMatrix();
+    pushStyle();
     rotate(Mod*phi);
     noFill();
     stroke(Filler);
     ellipse(xPos,yPos,size,size);
-    //popStyle();
+    popStyle();
     popMatrix();
     phi += Divide(PI,720);
   }
@@ -580,7 +570,7 @@ float[] QuadraticEQ(float a, float b, float c){
   }
 }
 
-float Heron(float sideA, float sideB, float sideC){
+float HeronArea(float sideA, float sideB, float sideC){
   float semiP = Divide(sideA + sideB + sideC,2);
   return sqrt(semiP*(semiP - sideA)*(semiP - sideB)*(semiP - sideC));
 }

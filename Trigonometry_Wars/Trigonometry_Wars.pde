@@ -52,7 +52,13 @@ PImage enemylvl2Texture;
 PImage enemylvl3Texture;
 PImage enemylvl4Texture;
 PImage boss1Texture;
-////SETS PROGRAM STATES
+//font information
+PFont classicTitleFont;
+PFont classicBodyFont;
+//global Engine_Graphics variables
+PGraphics jetWash;
+PGraphics backWash;
+////PROGRAM SWITCHES
 int programState;          ////Judges whether in title {0}, classicModeState {1}, adventureModeState {2}, Pause menu {3}, or Transition Animations (global) {4}
 
 int classicModeState;        //judges whether in tutorial {1-6}, Countdown {7-9}, classicModeGame {10}, death animation {11}, loser screen {12}, or winner screen {13}
@@ -62,12 +68,6 @@ int adventureModeState;           //Judges whether in Solar UI {0}, adventureMod
 int adventureModeWorldSelection;  //Judges whether in World 1 {1}, 2 {2}, 3 {3}, 4 {4}, or 5 (boss) {5}
 int adventureModeGame;            //Judges whether in play -- World 1 {11-13}, World 2 {21-22}, World 3 {31-34}, World 4 {41-45}, World 5 {51-53}
 int[] activeSTATES = new int[6];
-//font information
-PFont classicTitleFont;
-PFont classicBodyFont;
-//global Engine_Graphics variables
-PGraphics jetWash;
-PGraphics backWash;
 ////MASTER GAME TICKS
 int localTIMER = 0;   //for adding controlled repeatability in masterSwitch();
 int playerTICK = 0;   //for controlling player progress in Adventure Mode
@@ -83,15 +83,15 @@ void setup(){
   smooth(16);
   frameRate(120);
   noCursor();
-  
+  //flags programSTATE 2 as vaild
   adventureModeUnlocked = false;
-  ////comment any except program state (who's default value = 0)
+  ////can comment out any except programState (who's default value = 0)
   programState = 0;
-  //classicModeState = 0;
-  //classicModeGame = 0;
-  //adventureModeState = 0;
-  //adventureModeWorldSelection = 0;
-  //adventureModeGame = 0;
+  classicModeState = 0;
+  classicModeGame = 0;
+  adventureModeState = 0;
+  adventureModeWorldSelection = 0;
+  adventureModeGame = 0;
   
   //item initializations
   imageMode(CENTER);
@@ -99,7 +99,7 @@ void setup(){
   classicBodyFont = createFont("Spicy Rice",ScaleFont(120),true);
   Roll(1,1,1,1,1);
   //RollVortex(1);
-  VortexLoader();
+  //VortexLoader();
   RollGraphics();
   RollAdventureMode();
   
@@ -110,33 +110,33 @@ void draw(){
   masterSwitch();  //Screen_Control tab
   enemyTICK++;
   
-  println(frameRate);
+  //println(frameRate);
   //println(activeSTATES);
 }
 
 
 void RollGraphics(){
-  CursorTexture = loadImage("Cursor.png");
+  CursorTexture = loadImage("Buttons\\Cursor.png");
   
-  classicCountdown3 = loadImage("Images\\Classic Countdown 3.png");
-  classicCountdown2 = loadImage("Classic Countdown 2.png");
-  classicCountdown1 = loadImage("Classic Countdown 1.png");
-  ClassicPlayButton = loadImage("Classic Start Button.png");
-  classicBackwardArrowTexture = loadImage("Classic Backward Arrow.png");
-  classicForwardArrowTexture = loadImage("Classic Forward Arrow.png");
-  classicExit = loadImage("Classic Exit Button.png");
-  classicUnpause = loadImage("Classic Unpause Button.png");
+  classicCountdown3 = loadImage("Buttons\\Classic\\Countdown 3.png");
+  classicCountdown2 = loadImage("Buttons\\Classic\\Countdown 2.png");
+  classicCountdown1 = loadImage("Buttons\\Classic\\Countdown 1.png");
+  ClassicPlayButton = loadImage("Buttons\\Classic\\Start Button.png");
+  classicBackwardArrowTexture = loadImage("Buttons\\Classic\\Backward Arrow.png");
+  classicForwardArrowTexture = loadImage("Buttons\\Classic\\Forward Arrow.png");
+  classicExit = loadImage("Buttons\\Classic\\Exit Button.png");
+  classicUnpause = loadImage("Buttons\\Classic\\Unpause Button.png");
   
-  adventureCountdown3 = loadImage("Adventure Countdown 3.png");
-  adventureCountdown2 = loadImage("Adventure Countdown 2.png");
-  adventureCountdown1 = loadImage("Adventure Countdown 1.png");
-  AdventurePlayButton = loadImage("Adventure Start Button.png");
-  adventureExit = loadImage("Adventure Exit Button.png");
-  adventureUnpause = loadImage("Adventure Unpause Button.png");
-  LeftArrowTexture = loadImage("Double Left Arrow.png");
-  RightArrowTexture = loadImage("Double Right Arrow.png");
-  UpArrowTexture = loadImage("Double Up Arrow.png");
-  DownArrowTexture = loadImage("Double Down Arrow.png");
+  adventureCountdown3 = loadImage("Buttons\\Adventure\\Countdown 3.png");
+  adventureCountdown2 = loadImage("Buttons\\Adventure\\Countdown 2.png");
+  adventureCountdown1 = loadImage("Buttons\\Adventure\\Countdown 1.png");
+  AdventurePlayButton = loadImage("Buttons\\Adventure\\Start Button.png");
+  adventureExit = loadImage("Buttons\\Adventure\\Exit Button.png");
+  adventureUnpause = loadImage("Buttons\\Adventure\\Unpause Button.png");
+  LeftArrowTexture = loadImage("Buttons\\Adventure\\Double Left Arrow.png");
+  RightArrowTexture = loadImage("Buttons\\Adventure\\Double Right Arrow.png");
+  UpArrowTexture = loadImage("Buttons\\Adventure\\Double Up Arrow.png");
+  DownArrowTexture = loadImage("Buttons\\Adventure\\Double Down Arrow.png");
 }
 
 void RollVortex(int StarCount){
@@ -157,26 +157,26 @@ void Vortex(int StarCount){
 
 void Roll(int brickSpawnCount, int saucerSpawnCount, int tracerSpawnCount, int seekerSpawnCount, int marbleSpawnCount){
   //Initializes ArrayLists and textures
-  playerJetFulcrumTexture = loadImage("Fulcrum_Texture.png");
+  playerJetFulcrumTexture = loadImage("Textures\\Fulcrum_Texture.png");
   Fulcrum = new playerClassicJet();
   
-  enemylvl1Texture = loadImage("Enemy1_Texture.png");
+  enemylvl1Texture = loadImage("Textures\\Enemies\\Enemy1_Texture.png");
   for (int i = 0; i < brickSpawnCount; i++){
     Red_Brick.add(new Red_Brick());
   }
-  enemylvl2Texture = loadImage("Enemy2_Texture.png");
+  enemylvl2Texture = loadImage("Textures\\Enemies\\Enemy2_Texture.png");
   for (int i = 0; i < saucerSpawnCount; i++){
     Purple_Saucer.add(new Purple_Saucer());
   }
-  enemylvl3Texture = loadImage("Enemy3_Texture.png");
+  enemylvl3Texture = loadImage("Textures\\Enemies\\Enemy3_Texture.png");
   for (int i = 0; i < tracerSpawnCount; i++){
     Rainbow_Tracer.add(new Rainbow_Tracer());
   }
-  enemylvl4Texture = loadImage("Enemy4_Texture.png");
+  enemylvl4Texture = loadImage("Textures\\Enemies\\Enemy4_Texture.png");
   for (int i = 0; i < seekerSpawnCount; i++){
     Violent_Seeker.add(new Violent_Seeker());
   }
-  boss1Texture = loadImage("Boss1_Texture.png");
+  boss1Texture = loadImage("Textures\\Enemies\\Boss1_Texture.png");
   for (int i = 0; i < marbleSpawnCount; i++){
     Momma_Marble.add(new Momma_Marble());
   }
