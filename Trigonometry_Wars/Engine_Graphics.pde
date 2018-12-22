@@ -1,5 +1,6 @@
-//JetWash variables
 ArrayList<Stars> Vortex = new ArrayList<Stars>();
+ArrayList<Voidling> Void = new ArrayList<Voidling>();
+////JetWash variables
 float dR;
 float dG;
 float dB;
@@ -14,7 +15,7 @@ int dWMAX = 18;
 int dW;
 float vortexRadius = 1;
 float vortexAngle = 0;
-//gradient color variables (changes bottom to top)
+////gradient color variables (updates bottom to top)
 int c1Red;
 int c1Green;
 int c1Blue;
@@ -28,7 +29,9 @@ color c2;
 color c3;
 color c4;
 
+//===============================================GLOBAL TEXTURE CONTROL====================================================================\\
 
+//Dynamic background style used for gameplay
 void JetWash(){
   if (classicModeState == 1){
     stroke(RainbowGen());
@@ -80,6 +83,7 @@ void JetWash(){
   }
 }
 
+//Background transperency used for Display Scaling
 void BackWash(){
   pushStyle();
   imageMode(CORNERS);
@@ -91,6 +95,7 @@ void BackWash(){
   popStyle();
 }
 
+//Draws custom vortex animation
 void VortexWash(){
   if (programState != 2){
     pushMatrix();
@@ -130,6 +135,7 @@ void VortexWash(){
   }
 }
 
+//Calculates the next color in the ROYGBIV RGB color spectrum
 color RainbowGen(){
   ////assumes rainbow of width 999, split in thirds, max color intensity 255
   switch (colorSwitch){
@@ -171,6 +177,9 @@ color RainbowGen(){
   return color(dR,dG,dB);
 }
 
+//===============================================MISC ANIMATIONS====================================================================\\
+
+//Initializes each frame in the PImage array
 PImage[] VortexGIF = new PImage[58];
 //Vortex GIF frames
 void VortexLoader(){
@@ -179,14 +188,15 @@ void VortexLoader(){
   }
 }
 
+//Displays the Vortex GIF
 void VortexAnimator(){
-  //int startTime = millis();
   imageMode(CORNERS);
   tint(255,100);
   image(VortexGIF[floor(Divide(millis(),40)) % (VortexGIF.length)],0,0,width,height);
   imageMode(CENTER);
 }
 
+//Draws the Fulcrum Death Animation
 float explosionCounter = 1;
 void FulcrumDeathAnimation(float xlocation, float ylocation, float Radial){
   pushMatrix();
@@ -200,18 +210,23 @@ void FulcrumDeathAnimation(float xlocation, float ylocation, float Radial){
   popMatrix();
 }
 
+//===============================================PLAYER PROGRESS READOUT====================================================================\\
+
+//Calculates percentage of progress through current level
 String LevelProgress(int currentScore, int maxScore){
   float slotZero = Divide(currentScore,maxScore);
   slotZero *= 100;
   return str(DigitSplice(slotZero,3));
 }
 
+//Changes the color of the progress readout from red to green as the percentage of the current level gets closer to complete
 color c5Modifier(String progressPercentage){
   //Map function relates a point on one axis to a point on another axis one-to-one <----> map(float to map, min original, max original, min target, max target)
   float colorTimer = map(float(progressPercentage),0,100,0,255);
   return color(255 - colorTimer,colorTimer,0);
 }
 
+//Displayes the percentage progress through current level, given possible max score
 void LevelProgressReadout(int currentScore, int maxScore){
   pushMatrix();
   translate(width/2,0);
@@ -225,6 +240,9 @@ void LevelProgressReadout(int currentScore, int maxScore){
   popMatrix();
 }
 
+//===============================================DRAFTS NAVIGATION====================================================================\\
+
+//Configures & displays info panels (is controlled by horizontal positioning and caseWord toggling)
 void NavPopUp(String caseWord, float xCenter, float yCenter, float labelWidth, float labelHeight, String label, int side){
   pushStyle();
   rectMode(CORNERS);
@@ -235,67 +253,76 @@ void NavPopUp(String caseWord, float xCenter, float yCenter, float labelWidth, f
   fill(0);
   switch (side){
     case -1:  //Bottom-Left Corner
+      float[] hitBoxBL = {xCenter + labelWidth,xCenter + Divide(3*labelWidth,2)};
       triangle(xCenter + Divide(labelWidth,4),yCenter - Divide(labelHeight,2),xCenter + labelWidth,yCenter - 2*labelHeight,xCenter + Divide(3*labelWidth,2),yCenter - 2*labelHeight);
-      rect(Average(xCenter + labelWidth,xCenter + Divide(3*labelWidth,2)) + 0.6*textWidth(label),yCenter - 2*labelHeight,Average(xCenter + labelWidth,xCenter + Divide(3*labelWidth,2)) - 0.6*textWidth(label),(yCenter - 2*labelHeight) - (1.2*(textAscent() + textDescent())));
+      rect(Average(hitBoxBL) + 0.6*textWidth(label),yCenter - 2*labelHeight,Average(hitBoxBL) - 0.6*textWidth(label),(yCenter - 2*labelHeight) - (1.2*(textAscent() + textDescent())));
       fill(0,200,0);
-      text(label,Average(xCenter + labelWidth,xCenter + Divide(3*labelWidth,2)),(yCenter - 2*labelHeight) - 0.9*(textAscent() + textDescent()));
+      text(label,Average(hitBoxBL),(yCenter - 2*labelHeight) - 0.9*(textAscent() + textDescent()));
     break;
     case 0:   //Bottom-Center (for entry into Classic & Adventure modes)
+      float[] hitBoxBC = {xCenter,yCenter};
       if (caseWord == "Classic"){
         pushMatrix();
         translate(xCenter,yCenter);
         scale(Divide(25,96) + 0.1);
         image(ClassicPlayButton,0,0);
         popMatrix();
-        if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(xCenter,yCenter),0.95*TAU)){
+        if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitBoxBC),0.95*TAU)){
           fill(c2);
           text(label,xCenter,(yCenter - Divide(yCenter,PI)));
         }
       }
       else if (caseWord == "Adventure"){
         image(AdventurePlayButton,xCenter,yCenter);
-        if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(xCenter,yCenter),4.3)){
+        if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitBoxBC),4.3)){
           fill(c2);
           text(label,xCenter,(yCenter - Divide(yCenter,PI)));
         }
       }
     break;
     case 1:   //Bottom-Right Corner
+      float[] hitBoxBR = {xCenter - labelWidth,xCenter - Divide(3*labelWidth,2)};
       triangle(xCenter - Divide(labelWidth,4),yCenter - Divide(labelHeight,2),xCenter - labelWidth,yCenter - 2*labelHeight,xCenter - Divide(3*labelWidth,2),yCenter - 2*labelHeight);
-      rect(Average(xCenter - labelWidth,xCenter - Divide(3*labelWidth,2)) - 0.6*textWidth(label),yCenter - 2*labelHeight,Average(xCenter - labelWidth,xCenter - Divide(3*labelWidth,2)) + 0.6*textWidth(label),(yCenter - 2*labelHeight) - (1.2*(textAscent() + textDescent())));
+      rect(Average(hitBoxBR) - 0.6*textWidth(label),yCenter - 2*labelHeight,Average(hitBoxBR) + 0.6*textWidth(label),(yCenter - 2*labelHeight) - (1.2*(textAscent() + textDescent())));
       fill(0,200,0);
-      text(label,Average(xCenter - labelWidth,xCenter - Divide(3*labelWidth,2)),(yCenter - 2*labelHeight) - 0.9*(textAscent() + textDescent()));
+      text(label,Average(hitBoxBR),(yCenter - 2*labelHeight) - 0.9*(textAscent() + textDescent()));
     break;
   }
   popStyle();
 }
 
+//Displays the textures for the button, passes label-to-display to NavPopUp()
 void NavButton(String NavPopUpCASEWORD, float xCenter, float yCenter, float hitWidth, float hitHeight, String label4PopUp, int side){
+  float[] hitBox = {hitWidth,hitHeight};
   pushStyle();
   ellipseMode(CENTER);
   noStroke();
   fill(0,40);
   ellipse(xCenter,yCenter,hitWidth,hitHeight);
   switch (side){
-    case -1:  //To previous page
+    case -1:  //To previous page (On Bottom-Left)
       image(classicBackwardArrowTexture,xCenter,yCenter,ReturnNotCompare(hitWidth,hitHeight),ReturnNotCompare(hitWidth,hitHeight));
     break;
-    case 1:   //To next page
+    case 1:   //To next page (On Bottom-Right)
       image(classicForwardArrowTexture,xCenter,yCenter,ReturnNotCompare(hitWidth,hitHeight),ReturnNotCompare(hitWidth,hitHeight));
     break;
   }
   popStyle();
+  //For Classic Play button
   if (NavPopUpCASEWORD == "Classic"){
     NavPopUp("Classic",xCenter,yCenter,hitWidth,hitHeight,label4PopUp,side);
   }
+  //For Adventure Level Selection button
   if (NavPopUpCASEWORD == "Adventure"){
     NavPopUp("Adventure",xCenter,yCenter,hitWidth,hitHeight,label4PopUp,side);
   }
-  else if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitWidth,hitHeight),2)){
+  //For all other buttons displays
+  else if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitBox),2)){
     NavPopUp(NavPopUpCASEWORD,xCenter,yCenter,hitWidth,hitHeight,label4PopUp,side);
   }
 }
 
+//Displays the World info panel
 void PlanetLabel(String Label, float xCenter, float yCenter, color Panel){
   pushStyle();
   rectMode(CORNER);
@@ -309,6 +336,7 @@ void PlanetLabel(String Label, float xCenter, float yCenter, color Panel){
   popStyle();
 }
 
+//Displays the Level info panel
 void MoonLabel(String Label, float xCenter, float yCenter, color Panel){
   pushStyle();
   rectMode(CORNERS);
@@ -323,8 +351,10 @@ void MoonLabel(String Label, float xCenter, float yCenter, color Panel){
   //for preview animation
 }
 
+//Did the player click a navigation button?
 boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight){
-  if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitWidth,hitHeight),2)){
+  float[] hitBox = {hitWidth,hitHeight};
+  if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitBox),2)){
     return true;
   }
   else {
@@ -332,8 +362,9 @@ boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight
   }
 }
 
+//===============================================GRADIENT DRAFTERS====================================================================\\
 
-
+//The title screen background
 void classicScreenBackground(){
   c1Red = int(128*sin(colorDelta1) + 127);
   c1Green = int(128*sin(colorDelta1) + 127);
@@ -347,6 +378,7 @@ void classicScreenBackground(){
   colorDelta1 += (PI/720) % (TAU);
 }
 
+//The loser screen background
 void endClassicScreenBackground(){
   c3 = color(abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)));
   c4 = color(abs(255*cos(colorDelta2)),0,0);
@@ -354,6 +386,7 @@ void endClassicScreenBackground(){
   colorDelta2 += (PI/90) % (TAU);
 }
 
+//The winning screen background
 void winClassicScreenBackground(){
   c3 = color(abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)));
   c4 = color(0,abs(255*cos(colorDelta2)),0);
@@ -361,6 +394,7 @@ void winClassicScreenBackground(){
   colorDelta2 += (PI/180) % (TAU);
 }
 
+//Initializes and displays gradient
 void setGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, color c1, color c2){
   noFill();
   for (int i = yPlacement; i <= (yPlacement + ySpread); i++){
@@ -371,7 +405,9 @@ void setGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, c
   }
 }
 
+//===============================================GRAPHICS CLASS DECLARATIONS====================================================================\\
 
+//For Vortex creation
 class Stars{
   ////Class variables
   float xPos;
@@ -426,7 +462,51 @@ class Stars{
   }
 }
 
-//controls Violent_Seeker size
+//For Void creation
+class Voidling{
+  ////Class variables
+  PVector location;
+  PVector velocity;
+  PVector acceleration;
+  float topspeed = 14;
+  
+  
+  Voidling(){
+    ////Constructor
+    location = new PVector(random(width),random(height));
+    velocity = new PVector(0,0);
+  }
+  
+  ////Class methods
+  void move(){
+    PVector evoker = new PVector(width/2,height/3);
+    PVector attractor = PVector.sub(evoker,location);
+    attractor.normalize();
+    attractor.mult(0.1);
+    acceleration = attractor;
+    velocity.add(acceleration);
+    velocity.limit(topspeed);
+    location.add(velocity);
+    if (location.x >= width || location.x <= 0){
+      velocity.x *= -1;
+    }
+    if (location.y >= height || location.y <= 0){
+      velocity.y *= -1;
+    }
+  }
+  
+  void display(){
+    pushStyle();
+    noStroke();
+    fill(0,TAU);
+    ellipse(location.x,location.y,16,16);
+    popStyle();
+  }
+}
+
+//===============================================ENEMY TEXTURE MODULATIONS====================================================================\\
+
+//controls Violent_Seeker size relative to the target ship
 float eAccelerator;
 float eDistance;
 float eCoefficient;
@@ -439,18 +519,33 @@ float seekerExpansion(float FulcrumxPosition, float FulcrumyPosition, float Enem
   return eCoefficient;
 }
 
+//=====================================================================NUMERICAL COMPUTATION=====================================================================\\
 
-////MATH
+//Significant Figures calculator
 float DigitSplice(float n, int digitPlacement){
   n -= n % pow(10,-digitPlacement);
   return n;
 }
 
-int Summation(int First, int Second, int Third, int Fourth, int Fifth){
-  int total = First + Second + Third + Fourth + Fifth;
-  return total;
+//Integer Summation
+int iSummation(int[] numberQueue){
+  int sumTotal = 0;
+  for (int i = 0; i < numberQueue.length; i++){
+    sumTotal += numberQueue[i];
+  }
+  return sumTotal;
 }
 
+//Float Summation
+float fSummation(float[] numberQueue){
+  float sumTotal = 0;
+  for (int i = 0; i < numberQueue.length; i++){
+    sumTotal += numberQueue[i];
+  }
+  return sumTotal;
+}
+
+//Intelligent Division
 float Divide(float N, float D){
   if (D != 0){
     return N/D;
@@ -465,16 +560,24 @@ float Divide(float N, float D){
       println("Division By Zero -- returned Infinity");
       return -tan(Divide(PI,2));
     }
-    println("Indeterminate -- returned Zero");
+    println("L'Hopital Indeterminate -- returned Zero");
     return 0;
   }
 }
 
-float Average(float firstNumber, float secondNumber){
-  return Divide(Summation(int(firstNumber),int(secondNumber),0,0,0),2);
+//Computes arbitrarily-sized average
+float Average(float[] numberQueue){
+  return Divide(fSummation(numberQueue),2);
 }
 
-float Cube(float n){
+//Integer Cubing
+int iCube(int n){
+  n *= sq(n);
+  return int(n);
+}
+
+//Float Cubing
+float fCube(float n){
   n *= sq(n);
   return n;
 }
@@ -509,11 +612,40 @@ float ReturnNotCompare(float numberA, float numberB){
   }
 }
 
+//Validates arbitrary size() & fullScreen() choices
 float ScaleFont(int size){
   float scale = Divide(width*size,1920);
   return scale;
 }
 
+//Intelligent Quadratic solver
+float[] QuadraticEQ(float a, float b, float c){
+  float[] quadSolutions = new float[2];
+  float radicand = (pow(b,2) - 4*a*c);
+  if (radicand >= 0){
+    float solution1 = Divide(-b + sqrt(radicand),2*a);
+    float solution2 = Divide(-b - sqrt(radicand),2*a);
+    quadSolutions[0] = solution1;
+    quadSolutions[1] = solution2;
+    return quadSolutions;
+  }
+  else {
+    println("Non-Real Solutions to QuadraticEQ -- returned radicand & real divisor");
+    quadSolutions[0] = radicand;
+    quadSolutions[1] = Divide(-b,2*a);
+    return quadSolutions;
+  }
+}
+
+//Area of a triangle given the three side lengths
+float HeronArea(float sideA, float sideB, float sideC){
+  float semiP = Divide(sideA + sideB + sideC,2);
+  return sqrt(semiP*(semiP - sideA)*(semiP - sideB)*(semiP - sideC));
+}
+
+//===============================================ANALYTIC COMPUTATION====================================================================\\
+
+//Calculates the closest point on the tangent vector associated with the ship and its acceleration heading
 boolean VectorIntersect(float Shipx, float Shipy, float Enemyx, float Enemyy, float EnemyRadius){
   float[] VIntersectionCoords = new float[2];
   PVector u = new PVector(0,0);
@@ -551,26 +683,39 @@ boolean VectorIntersect(float Shipx, float Shipy, float Enemyx, float Enemyy, fl
   return false;
 }
 
-
-float[] QuadraticEQ(float a, float b, float c){
-  float[] quadSolutions = new float[2];
-  float radicand = (pow(b,2) - 4*a*c);
-  if (radicand >= 0){
-    float solution1 = Divide(-b + sqrt(radicand),2*a);
-    float solution2 = Divide(-b - sqrt(radicand),2*a);
-    quadSolutions[0] = solution1;
-    quadSolutions[1] = solution2;
-    return quadSolutions;
+//Determines which Trigonometric Quadrant a given coordinate lies -- exclusive Cardinals
+int QuadrantFinder(float xlocation, float ylocation){
+  if (xlocation > width/2 && ylocation < height/2){
+    return 1;
   }
-  else {
-    println("Non-Real Solutions to QuadraticEQ -- returned radicand & real divisor");
-    quadSolutions[0] = radicand;
-    quadSolutions[1] = Divide(-b,2*a);
-    return quadSolutions;
+  else if (xlocation < width/2 && ylocation < height/2){
+    return 2;
   }
+  else if (xlocation < width/2 && ylocation > height/2){
+    return 3;
+  }
+  else if (xlocation > width/2 && ylocation > height/2){
+    return 4;
+  }
+  return 0;
 }
 
-float HeronArea(float sideA, float sideB, float sideC){
-  float semiP = Divide(sideA + sideB + sideC,2);
-  return sqrt(semiP*(semiP - sideA)*(semiP - sideB)*(semiP - sideC));
+//Determines if the Fulcrum Death Animation reaches tthe farthest corner from death origin
+boolean ExplosionEnd(float xlocation, float ylocation, float Radial){
+  if (QuadrantFinder(xlocation,ylocation) == 1 && Radial/2 > dist(xlocation,ylocation,0,height)){
+    return true;
+  }
+  else if (QuadrantFinder(xlocation,ylocation) == 2 && Radial/2 > dist(xlocation,ylocation,width,height)){
+    return true;
+  }
+  else if (QuadrantFinder(xlocation,ylocation) == 3 && Radial/2 > dist(xlocation,ylocation,width,0)){
+    return true;
+  }
+  else if (QuadrantFinder(xlocation,ylocation) == 4 && Radial/2 > dist(xlocation,ylocation,0,0)){
+    return true;
+  }
+  else if (Radial/2 > Divide(ReturnCompare(width,height),2)){
+    return true;
+  }
+  return false;
 }

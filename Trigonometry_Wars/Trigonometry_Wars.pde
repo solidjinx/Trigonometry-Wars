@@ -99,7 +99,7 @@ void setup(){
   classicBodyFont = createFont("Spicy Rice",ScaleFont(120),true);
   Roll(1,1,1,1,1);
   //RollVortex(1);
-  //VortexLoader();
+  VortexLoader();
   RollGraphics();
   RollAdventureMode();
   
@@ -139,6 +139,7 @@ void RollGraphics(){
   DownArrowTexture = loadImage("Buttons\\Adventure\\Double Down Arrow.png");
 }
 
+
 void RollVortex(int StarCount){
   for (int i = 0; i < StarCount; i++){
     Vortex.add(new Stars());
@@ -152,6 +153,23 @@ void Vortex(int StarCount){
   }
   for (int i = 0; i < StarCount; i++){
     Vortex.add(new Stars());
+  }
+}
+
+
+void RollVoid(int VoidlingCount){
+  for (int i = 0; i < VoidlingCount; i++){
+    Void.add(new Voidling());
+  }
+}
+
+void Void(int VoidlingCount){
+  for (int i = Void.size() - 1; i >= 0; i--){
+    Voidling singleVoidling = Void.get(i);
+    Void.remove(singleVoidling);
+  }
+  for (int i = 0; i < VoidlingCount; i++){
+    Void.add(new Voidling());
   }
 }
 
