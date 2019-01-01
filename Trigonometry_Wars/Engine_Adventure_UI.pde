@@ -1,3 +1,33 @@
+////UI Validations
+//World 1 Control
+boolean World1 = true;
+boolean Level11 = false;
+boolean Level12 = false;
+boolean Level13 = false;
+//World 2 Control
+boolean World2 = true;
+boolean Level21 = false;
+boolean Level22 = false;
+//World 3 Control
+boolean World3 = true;
+boolean Level31 = false;
+boolean Level32 = false;
+boolean Level33 = false;
+boolean Level34 = false;
+//World 4 Control
+boolean World4 = true;
+boolean Level41 = false;
+boolean Level42 = false;
+boolean Level43 = false;
+boolean Level44 = false;
+boolean Level45 = false;
+//World 5 Control
+boolean World5 = true;
+boolean Level51 = false;
+boolean Level52 = false;
+boolean Level53 = false;
+
+
 //incremental variables for sun
 boolean cModIncrement = true;
 int colorModIncrement = 0;
@@ -296,7 +326,6 @@ class ThirdSystem{
   float macroRadius = 8;
   float macroSpeed = random(5.75,6.25);  //Global vert. min 4.75 , max 7.25
   float theta = -4*PI/5;
-  color macroColor = color(0,165,0);
   PVector location;
   PVector tangentialVelocity;
   PVector centripetalAcceleration;
@@ -316,7 +345,7 @@ class ThirdSystem{
     tangentialVelocity.add(centripetalAcceleration);
     location.add(tangentialVelocity);
     noStroke();
-    fill(macroColor);
+    fill(RainbowGen());
     ellipse(location.x,location.y,macroRadius,macroRadius);
   }
   
@@ -325,14 +354,14 @@ class ThirdSystem{
     translate(width/2,height/2);
     scale(16);
     noStroke();
-    fill(macroColor,pow(PI,PIE));
+    fill(RainbowGen(),pow(PI,PIE));
     ellipse(0,0,macroRadius,macroRadius);
     popMatrix();
   }
   
   void Settle(){
     noStroke();
-    fill(macroColor);
+    fill(RainbowGen());
     ellipse(location.x,location.y,macroRadius,macroRadius);
   }
 }

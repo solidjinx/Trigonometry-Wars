@@ -34,7 +34,12 @@ String GameSet = "Adventure Mode is now unlocked";
 void masterSwitch(){
   switch (programState){
     case 0:  //Title
-      classicScreenBackground();
+      if (adventureModeUnlocked){
+        VortexAnimator();
+      }
+      else {
+        classicScreenBackground();
+      }
       NavButton("Classic",Divide(width,2) + 250,height - (300 + Divide(height,8)),300,300,"Click to Play Classic",0);
       NavButton("Adventure",Divide(width,2) - 250,height - (300 + Divide(height,8)),300,300,"Click to Play Adventure",0);
       NavButton("N/A",width - Divide(width,8),height - Divide(height,10),200,100,"Click for Classic Mode Tutorial!",1);
@@ -54,13 +59,14 @@ void masterSwitch(){
       //For Classic Mode Tutorial (Fulcrum page)
       if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
         localTIMER = 0;
-        Reroll(0,0,0,0,0);
+        Reroll(new int[]{0,0,0,0,0,0,0,0,0});
         programState = 1;
         classicModeState = 1;
         break;
       }
       //For Classic Mode Play Button
       else if (mousePressed && localTIMER >= 30 && NavClicked(Divide(width,2) + 250,height - (300 + Divide(height,8)),300,300)){
+        background(0);
         localTIMER = 0;
         programState = 1;
         classicModeState = 7;
@@ -68,6 +74,7 @@ void masterSwitch(){
       }
       //For Adventure Mode Play Button
       else if (mousePressed && localTIMER >= 30 && adventureModeUnlocked && NavClicked(Divide(width,2) - 250,height - (300 + Divide(height,8)),300,300)){
+        background(0);
         localTIMER = 0;
         //Vortex(540);
         programState = 2;
@@ -76,6 +83,7 @@ void masterSwitch(){
       }
       //For Adventure Mode Storyline
       else if (mousePressed && localTIMER >= 120 && adventureModeUnlocked && NavClicked(width/8,height - Divide(height,10),200,100)){
+        background(0);
         localTIMER = 0;
         programState = 2;
         adventureModeState = 10;
@@ -112,7 +120,7 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Red_Brick page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(1,0,0,0,0);
+            Reroll(new int[]{1,0,0,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 2;
             break;
@@ -125,6 +133,7 @@ void masterSwitch(){
           }
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
+            background(0);
             localTIMER = 0;
             programState = 1;
             classicModeState = 7;
@@ -155,7 +164,7 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Purple_Saucer page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,1,0,0,0);
+            Reroll(new int[]{0,1,0,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 3;
             break;
@@ -163,13 +172,14 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Fulcrum page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,0,0,0,0);
+            Reroll(new int[]{0,0,0,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 1;
             break;
           }
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
+            background(0);
             localTIMER = 0;
             programState = 1;
             classicModeState = 7;
@@ -199,7 +209,7 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Rainbow_Tracer page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,0,1,0,0);
+            Reroll(new int[]{0,0,1,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 4;
             break;
@@ -207,13 +217,14 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Red_Brick page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(1,0,0,0,0);
+            Reroll(new int[]{1,0,0,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 2;
             break;
           }
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
+            background(0);
             localTIMER = 0;
             programState = 1;
             classicModeState = 7;
@@ -244,7 +255,7 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Violent_Seeker page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,0,0,1,0);
+            Reroll(new int[]{0,0,0,1,0,0,0,0,0});
             programState = 1;
             classicModeState = 5;
             break;
@@ -252,13 +263,14 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Purple_Saucer page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,1,0,0,0);
+            Reroll(new int[]{0,1,0,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 3;
             break;
           }
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
+            background(0);
             localTIMER = 0;
             programState = 1;
             classicModeState = 7;
@@ -288,7 +300,7 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Momma_Marble page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width - Divide(width,8),height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,0,0,0,1);
+            Reroll(new int[]{0,0,0,0,0,0,0,1,0});
             programState = 1;
             classicModeState = 6;
             break;
@@ -296,13 +308,14 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Rainbow_Tracer page)
           else if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,0,1,0,0);
+            Reroll(new int[]{0,0,1,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 4;
             break;
           }
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
+            background(0);
             localTIMER = 0;
             programState = 1;
             classicModeState = 7;
@@ -329,13 +342,14 @@ void masterSwitch(){
           //For Classic Mode Tutorial (Violent_Seeker page)
           if (mousePressed && localTIMER >= 120 && NavClicked(width/8,height - Divide(height,10),200,100)){
             localTIMER = 0;
-            Reroll(0,0,0,1,0);
+            Reroll(new int[]{0,0,0,1,0,0,0,0,0});
             programState = 1;
             classicModeState = 5;
             break;
           }
           //For Classic Mode Play Button
           else if (mousePressed && NavClicked(width/2,height - Divide(height,6),300,300)){
+            background(0);
             localTIMER = 0;
             programState = 1;
             classicModeState = 7;
@@ -352,6 +366,7 @@ void masterSwitch(){
             popStyle();
           }
           if (localTIMER == 60){
+            background(0);
             localTIMER = 0;
             classicModeState++;
             break;
@@ -367,6 +382,7 @@ void masterSwitch(){
             popStyle();
           }
           if (localTIMER == 60){
+            background(0);
             localTIMER = 0;
             classicModeState++;
             break;
@@ -385,7 +401,7 @@ void masterSwitch(){
           if (localTIMER == 60 && classicModeGame == 1 && playerSCORE > 0){
             localTIMER = 0;
             //Vortex(1080);
-            Reroll(42,16,8,0,0);
+            Reroll(new int[]{42,16,8,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 10;
             classicModeGame = 2;
@@ -394,7 +410,7 @@ void masterSwitch(){
           else if (localTIMER == 60 && classicModeGame == 2){
             localTIMER = 0;
             //Vortex(1080);
-            Reroll(32,32,16,4,0);
+            Reroll(new int[]{32,32,16,4,0,0,0,0,0});
             programState = 1;
             classicModeState = 10;
             classicModeGame = 3;
@@ -403,7 +419,7 @@ void masterSwitch(){
           else if (localTIMER == 60 && classicModeGame == 3){
             localTIMER = 0;
             //Vortex(1080);
-            Reroll(32,32,8,16,1);
+            Reroll(new int[]{32,32,8,16,0,0,0,1,0});
             programState = 1;
             classicModeState = 10;
             classicModeGame = 4;
@@ -412,7 +428,7 @@ void masterSwitch(){
           else if (localTIMER == 60){
             localTIMER = 0;
             //Vortex(1080);
-            Reroll(42,8,0,0,0);
+            Reroll(new int[]{42,8,0,0,0,0,0,0,0});
             programState = 1;
             classicModeState = 10;
             classicModeGame = 1;
@@ -802,8 +818,8 @@ void masterSwitch(){
           //    Vortex.add(new Stars());
           //  }
           //}
-          JetWash();
           //VortexWash();
+          JetWash();
           FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter);
           FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 1);
           FulcrumDeathAnimation(Fulcrum.location.x,Fulcrum.location.y,explosionCounter + 2);
@@ -925,10 +941,16 @@ void masterSwitch(){
             FirstSystem singleWorld = planet1.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
               singleWorld.Settle();
-              PlanetLabel("World 1: The Red Empire Returns",singleWorld.location.x,singleWorld.location.y,color(255,0,0));
-              if (mousePressed){
-                adventureModeState = 1;
-                adventureModeWorldSelection = 1;
+              if (World1){
+                PlanetLabel("World 1:","The Beginning",singleWorld.location.x,singleWorld.location.y,color(255,0,0));
+                if (mousePressed){
+                  adventureModeState = 1;
+                  adventureModeWorldSelection = 1;
+                  break;
+                }
+              }
+              else {
+                PlanetLabel("World 1","LOCKED",singleWorld.location.x,singleWorld.location.y,color(255,0,0));
               }
             }
             else {
@@ -944,10 +966,16 @@ void masterSwitch(){
             SecondSystem singleWorld = planet2.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
               singleWorld.Settle();
-              PlanetLabel("World 2: Unidentified Flying Object",singleWorld.location.x,singleWorld.location.y,color(255,0,255));
-              if (mousePressed){
-                adventureModeState = 1;
-                adventureModeWorldSelection = 2;
+              if (World2){
+                PlanetLabel("World 2:","Astroid Belt",singleWorld.location.x,singleWorld.location.y,color(255,0,255));
+                if (mousePressed){
+                  adventureModeState = 1;
+                  adventureModeWorldSelection = 2;
+                  break;
+                }
+              }
+              else {
+                PlanetLabel("World 2","LOCKED",singleWorld.location.x,singleWorld.location.y,color(255,0,255));
               }
             }
             else {
@@ -963,10 +991,16 @@ void masterSwitch(){
             ThirdSystem singleWorld = planet3.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
               singleWorld.Settle();
-              PlanetLabel("World 3: Speedy Gonzolas",singleWorld.location.x,singleWorld.location.y,RainbowGen());
-              if (mousePressed){
-                adventureModeState = 1;
-                adventureModeWorldSelection = 3;
+              if (World3){
+                PlanetLabel("World 3:","Pearlescent Gas Giant",singleWorld.location.x,singleWorld.location.y,RainbowGen());
+                if (mousePressed){
+                  adventureModeState = 1;
+                  adventureModeWorldSelection = 3;
+                  break;
+                }
+              }
+              else {
+                PlanetLabel("World 3","LOCKED",singleWorld.location.x,singleWorld.location.y,RainbowGen());
               }
             }
             else {
@@ -982,10 +1016,16 @@ void masterSwitch(){
             FourthSystem singleWorld = planet4.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
               singleWorld.Settle();
-              PlanetLabel("World 4: Quidditch",singleWorld.location.x,singleWorld.location.y,color(255,147,16));
-              if (mousePressed){
-                adventureModeState = 1;
-                adventureModeWorldSelection = 4;
+              if (World4){
+                PlanetLabel("World 4:","Outer Rim",singleWorld.location.x,singleWorld.location.y,color(255,147,16));
+                if (mousePressed){
+                  adventureModeState = 1;
+                  adventureModeWorldSelection = 4;
+                  break;
+                }
+              }
+              else {
+                PlanetLabel("World 4:","LOCKED",singleWorld.location.x,singleWorld.location.y,color(255,147,16));
               }
             }
             else {
@@ -1001,10 +1041,16 @@ void masterSwitch(){
             FifthSystem singleWorld = planet5.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
               singleWorld.Settle();
-              PlanetLabel("World 5: The Void",singleWorld.location.x,singleWorld.location.y,color(int(random(200)),int(random(200)),int(random(200))));
-              if (mousePressed){
-                adventureModeState = 1;
-                adventureModeWorldSelection = 5;
+              if (World5){
+                PlanetLabel("World 5:","The Void",singleWorld.location.x,singleWorld.location.y,color(int(random(200)),int(random(200)),int(random(200))));
+                if (mousePressed){
+                  adventureModeState = 1;
+                  adventureModeWorldSelection = 5;
+                  break;
+                }
+              }
+              else {
+                PlanetLabel("World 5:","LOCKED",singleWorld.location.x,singleWorld.location.y,color(int(random(200)),int(random(200)),int(random(200))));
               }
             }
             else {
@@ -1026,16 +1072,37 @@ void masterSwitch(){
               //VortexWash();
               for (int i = 0; i < planet1.size(); i++){
                 FirstSystem singleWorld = planet1.get(i);
-                if (mousePressed && dist(mouseX,mouseY,0,0) <= 16*singleWorld.macroRadius){
-                  adventureModeState = 2;
-                }
-                else {
                 singleWorld.Approach();
-                }
               }
               for (int i = 0; i < levels13.size(); i++){
                 leveling_Red_Brick singleMoon = levels13.get(i);
-                singleMoon.Approach();
+                if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 0){
+                  singleMoon.Settle();
+                  MoonLabel("Under Construction","World 1: Level 1",color(255,0,0));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 1){
+                  singleMoon.Settle();
+                  MoonLabel("Façade","World 1: Level 2",color(255,0,0));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 2){
+                  singleMoon.Settle();
+                  MoonLabel("Another Brick In The Wall","World 1: Level 3",color(255,0,0));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else {
+                  singleMoon.Approach();
+                }
               }
               if (mousePressed && mouseButton == RIGHT){
                 adventureModeState = 0;
@@ -1057,7 +1124,25 @@ void masterSwitch(){
               }
               for (int i = 0; i < levels22.size(); i++){
                 leveling_Purple_Saucer singleMoon = levels22.get(i);
-                singleMoon.Approach();
+                if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 0){
+                  singleMoon.Settle();
+                  MoonLabel("Beam Me Up, Scotty!","World 2: Level 1",color(255,0,255));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 1){
+                  singleMoon.Settle();
+                  MoonLabel("The Smoking Man","World 2: Level 2",color(255,0,255));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else {
+                  singleMoon.Approach();
+                }
               }
               if (mousePressed && mouseButton == RIGHT){
                 adventureModeState = 0;
@@ -1079,7 +1164,41 @@ void masterSwitch(){
               }
               for (int i = 0; i < levels34.size(); i++){
                 leveling_Rainbow_Tracer singleMoon = levels34.get(i);
-                singleMoon.Approach();
+                if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 0){
+                  singleMoon.Settle();
+                  MoonLabel("Cloud City","World 3: Level 1",RainbowGen());
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 1){
+                  singleMoon.Settle();
+                  MoonLabel("Approaching Storm","World 3: Level 2",RainbowGen());
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 2){
+                  singleMoon.Settle();
+                  MoonLabel("Tracer Main","World 3: Level 3",RainbowGen());
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 3){
+                  singleMoon.Settle();
+                  MoonLabel("The Eye of Helios","World 3: Level 4",RainbowGen());
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else {
+                  singleMoon.Approach();
+                }
               }
               if (mousePressed && mouseButton == RIGHT){
                 adventureModeState = 0;
@@ -1101,7 +1220,49 @@ void masterSwitch(){
               }
               for (int i = 0; i < levels45.size(); i++){
                 leveling_Violent_Seeker singleMoon = levels45.get(i);
-                singleMoon.Approach();
+                if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 0){
+                  singleMoon.Settle();
+                  MoonLabel("Inception??","World 4: Level 1",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 1){
+                  singleMoon.Settle();
+                  MoonLabel("Zero-Point Energy","World 4: Level 2",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 2){
+                  singleMoon.Settle();
+                  MoonLabel("Someone Get This Man His Shield","World 4: Level 3",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 3){
+                  singleMoon.Settle();
+                  MoonLabel("The Truth ...","World 4: Level 4",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 4){
+                  singleMoon.Settle();
+                  MoonLabel("... and Reconciliation","World 4: Level 5",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else {
+                  singleMoon.Approach();
+                }
               }
               if (mousePressed && mouseButton == RIGHT){
                 adventureModeState = 0;
@@ -1123,7 +1284,33 @@ void masterSwitch(){
               }
               for (int i = 0; i < levels53.size(); i++){
                 leveling_Momma_Marble singleMoon = levels53.get(i);
-                singleMoon.Approach();
+                if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 0){
+                  singleMoon.Settle();
+                  MoonLabel("Let The Games Begin!","World 5: Level 1",color(int(random(200)),int(random(200)),int(random(200))));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 1){
+                  singleMoon.Settle();
+                  MoonLabel("You. Will. Die, Seriously.","World 5: Level 2",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else if (dist(mouseX,mouseY,singleMoon.location.x,singleMoon.location.y) <= 64 && i == 2){
+                  singleMoon.Settle();
+                  MoonLabel("The Void Evoker","World 5: Level 3",color(255,147,16));
+                  if (mousePressed){
+                    adventureModeState = 2;
+                    break;
+                  }
+                }
+                else {
+                  singleMoon.Approach();
+                }
               }
               if (mousePressed && mouseButton == RIGHT){
                 adventureModeState = 0;

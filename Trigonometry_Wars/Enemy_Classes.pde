@@ -335,12 +335,164 @@ void move(){
 //==============================================================================================================================================================================================================\\
 //====Enemy Level 5====\\
 
-//class Crypt_Orbs{
+class Crypt_Stalker{
   
-//}
+}
 //==============================================================================================================================================================================================================\\
 //====Enemy Level 6====\\
 
-//class Crypt_Stalker{
+class Crypt_Orbs{
   
-//}
+}
+//==============================================================================================================================================================================================================\\
+//====Enemy Level 7====\\
+
+class Crypt_Bomb{
+  ////Class variables
+  float xPos;
+  float yPos;
+  float xTarget;
+  float yTarget;
+  float enemySize = 72;
+  int bombRadius = 200;
+  float phi = 0;
+  int pointCount;
+  float deltaPhi;
+  
+  int HEALTH;
+  
+  int bombMoveState = 0;
+  int bombDisplayState = 0;
+  int[] cartridgeLoad = {9,10,12,13,15,16,16,18,19,19,21,21,22,22,22,22,23,24,25,25,25,25,26,28,28,28,28,29,31,31,34,34,35,35,37,37,38,38,40,41,41,41,41,43,44,44,44,44,47,47,47,47,48,49,50,50,50,50,51,53,53,54,56,57,59,60,60,60,60,63,65,66,66,66,66,69,69,69,69,72,72,72,72,73,75,76,78,80,81,82,82,84,85,85,85,85,86,88,89,91,91,91,91,92,94,94,95,95,97,97,97,97,98,100,100,101,103,103};
+  int moveTick;
+  int displayTick;
+  
+  boolean explode = false;
+  boolean explodeDone = false;
+  
+
+  Crypt_Bomb(){
+    ////Constructor
+    xTarget = random(enemySize,width - enemySize);
+    yTarget = random(Divide(height,3) + enemySize,height - enemySize);
+    pointCount = cartridgeLoad[round(random(cartridgeLoad.length))];
+    deltaPhi = Divide(2*PI,pointCount);
+    HEALTH = 30;
+    moveTick = 0;
+    displayTick = 0;
+  }
+
+  ////Class methods
+  void move(){
+    switch (bombMoveState){
+      case 0:  //approaches target location exponentially
+        if (dist(xPos,yPos,xTarget,yTarget) <= 2){
+          xPos = xTarget;
+          yPos = yTarget;
+          moveTick = 0;
+          bombMoveState = 1;
+          break;
+        }
+        //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
+        xPos = map(expApproach(moveTick,16),0,1,width/2,xTarget);
+        yPos = map(expApproach(moveTick,16),0,1,height/3,yTarget);
+        moveTick++;
+      break;
+      case 1:  //at target location -- countdown towards explosion
+        if (moveTick >= 60){
+          explode = true;
+          moveTick = 0;
+          bombDisplayState = 1;
+          break;
+        }
+        moveTick++;
+      break;
+    }
+  }
+  
+  void display(){
+    switch (bombDisplayState){
+      case 0:  //default bomb texture
+        pushMatrix();
+        translate(xPos,yPos);
+        rotate(-phi);
+        pushStyle();
+        imageMode(CORNERS);
+        image(enemylvl7Texture1,-enemySize,-enemySize,enemySize,enemySize);
+        rotate(6*phi);
+        image(enemylvl7Texture2,-Divide(3*enemySize,5),-Divide(3*enemySize,5),Divide(3*enemySize,5),Divide(3*enemySize,5));
+        popStyle();
+        popMatrix();
+        phi += Divide(PI,22.5);
+      break;
+      case 1:  //bomb explosion animation
+        if (displayTick >= 96){
+          explodeDone = true;
+        }
+        if (!explodeDone){
+          pushMatrix();
+          translate(xPos,yPos);
+          rotate(phi);
+          pushStyle();
+          fill(255);
+          stroke(255,0,0);
+          beginShape();
+          //Exterior bounds -- CW
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,bombRadius)*cos((pointCount - i)*deltaPhi),-map(expApproach(displayTick,8),0,1,0,bombRadius)*sin(pointCount - i)*deltaPhi);
+          }
+          //Interior bounds -- CCW
+          beginContour();
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*cos((pointCount - i)*-deltaPhi),map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*sin(pointCount - i)*deltaPhi);
+          }
+          endContour();
+          endShape(CLOSE);
+          rotate(2*phi);
+          beginShape();
+          //Exterior bounds -- CW
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,bombRadius)*cos((pointCount - i)*deltaPhi),-map(expApproach(displayTick,8),0,1,0,bombRadius)*sin(pointCount - i)*deltaPhi);
+          }
+          //Interior bounds -- CCW
+          beginContour();
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*cos((pointCount - i)*-deltaPhi),map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*sin(pointCount - i)*deltaPhi);
+          }
+          endContour();
+          endShape(CLOSE);
+          rotate(3*phi);
+          beginShape();
+          //Exterior bounds -- CW
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,bombRadius)*cos((pointCount - i)*deltaPhi),-map(expApproach(displayTick,8),0,1,0,bombRadius)*sin(pointCount - i)*deltaPhi);
+          }
+          //Interior bounds -- CCW
+          beginContour();
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*cos((pointCount - i)*-deltaPhi),map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*sin(pointCount - i)*deltaPhi);
+          }
+          endContour();
+          endShape(CLOSE);
+          rotate(4*phi);
+          beginShape();
+          //Exterior bounds -- CW
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,bombRadius)*cos((pointCount - i)*deltaPhi),-map(expApproach(displayTick,8),0,1,0,bombRadius)*sin(pointCount - i)*deltaPhi);
+          }
+          //Interior bounds -- CCW
+          beginContour();
+          for (int i = 0; i <= pointCount; i++){
+            vertex(map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*cos((pointCount - i)*-deltaPhi),map(expApproach(displayTick,8),0,1,0,Divide(8*bombRadius,9))*sin(pointCount - i)*deltaPhi);
+          }
+          endContour();
+          endShape(CLOSE);
+          popStyle();
+          popMatrix();
+          phi -= Divide(PI,90);
+          displayTick++;
+        }
+      break;
+    }
+  }
+}

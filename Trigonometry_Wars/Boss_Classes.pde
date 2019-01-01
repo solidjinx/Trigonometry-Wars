@@ -73,6 +73,53 @@ class Momma_Marble{
 //==============================================================================================================================================================================================================\\
 //====Boss Level 2====\\
 
-//class Void_Evoker{
+class Void_Evoker{
+  ////Class variables
+  float xPos;
+  float yPos;
+  float enemySize = height/3;
   
-//}
+  int VALUE = 1000000;
+  int HEALTH;
+  
+  int bombSwitch;
+  int lifeTimer;
+  int bombTimer;
+
+  Void_Evoker(){
+    ////Constructor
+    xPos = width/2;
+    yPos = height/3;
+    HEALTH = VALUE + 16000;
+    lifeTimer = 0;
+    bombSwitch = 0;
+  }
+
+  ////Class methods
+  void health(){
+    HEALTH = VALUE + Void.size();
+    lifeTimer++;
+  }
+  
+  void attack(){
+    switch(bombSwitch){
+      case 0:
+        if (lifeTimer == 450){
+          throwBomb = true;
+          bombSwitch = 1;
+          break;
+        }
+        throwBomb = false;
+      break;
+      case 1:
+        bombTimer = int(random(100));
+        if (bombTimer == 0){
+          throwBomb = true;
+        }
+        else {
+          throwBomb = false;
+        }
+      break;
+    }
+  }
+}

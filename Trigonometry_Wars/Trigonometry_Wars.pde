@@ -5,7 +5,12 @@ ArrayList<Red_Brick> Red_Brick = new ArrayList<Red_Brick>();
 ArrayList<Purple_Saucer> Purple_Saucer = new ArrayList<Purple_Saucer>();
 ArrayList<Rainbow_Tracer> Rainbow_Tracer = new ArrayList<Rainbow_Tracer>();
 ArrayList<Violent_Seeker> Violent_Seeker = new ArrayList<Violent_Seeker>();
+ArrayList<Crypt_Stalker> Crypt_Stalker = new ArrayList<Crypt_Stalker>();
+ArrayList<Crypt_Orbs> Crypt_Orbs = new ArrayList<Crypt_Orbs>();
+ArrayList<Crypt_Bomb> Crypt_Bomb = new ArrayList<Crypt_Bomb>();
+
 ArrayList<Momma_Marble> Momma_Marble = new ArrayList<Momma_Marble>();
+ArrayList<Void_Evoker> Void_Evoker = new ArrayList<Void_Evoker>();
 //Adventure Mode UI declarations
 ArrayList<Solar> Sun = new ArrayList<Solar>();
 
@@ -51,6 +56,10 @@ PImage enemylvl1Texture;
 PImage enemylvl2Texture;
 PImage enemylvl3Texture;
 PImage enemylvl4Texture;
+PImage enemylvl5Texture;
+PImage enemylvl6Texture;
+PImage enemylvl7Texture1;
+PImage enemylvl7Texture2;
 PImage boss1Texture;
 //font information
 PFont classicTitleFont;
@@ -75,6 +84,7 @@ boolean adventureModeUnlocked;
 int enemyTICK = 0;           //for controlling enemy spawning and movement
 int playerSCORE = 0;         //for scoring points  //20440 is max Classic score
 int playerCARNAGEKUDOS = 0;  //for controlling ship upgrades
+boolean throwBomb = false;
 
 
 void setup(){
@@ -84,7 +94,7 @@ void setup(){
   frameRate(120);
   noCursor();
   //flags programSTATE 2 as vaild
-  adventureModeUnlocked = false;
+  adventureModeUnlocked = true;
   ////can comment out any except programState (who's default value = 0)
   programState = 0;
   classicModeState = 0;
@@ -97,13 +107,13 @@ void setup(){
   imageMode(CENTER);
   classicTitleFont = createFont("Stencil",ScaleFont(160),true);
   classicBodyFont = createFont("Spicy Rice",ScaleFont(120),true);
-  Roll(1,1,1,1,1);
+  Roll(new int[]{1,1,1,1,1,1,1,1,1});
   //RollVortex(1);
   VortexLoader();
   RollGraphics();
   RollAdventureMode();
   
-  //println();
+  //println(PIE*PI);
 }
 
 void draw(){
@@ -173,41 +183,57 @@ void Void(int VoidlingCount){
   }
 }
 
-void Roll(int brickSpawnCount, int saucerSpawnCount, int tracerSpawnCount, int seekerSpawnCount, int marbleSpawnCount){
+void Roll(int[] spawnCount){
   //Initializes ArrayLists and textures
   playerJetFulcrumTexture = loadImage("Textures\\Fulcrum_Texture.png");
   Fulcrum = new playerClassicJet();
   
   enemylvl1Texture = loadImage("Textures\\Enemies\\Enemy1_Texture.png");
-  for (int i = 0; i < brickSpawnCount; i++){
+  for (int i = 0; i < spawnCount[0]; i++){
     Red_Brick.add(new Red_Brick());
   }
   enemylvl2Texture = loadImage("Textures\\Enemies\\Enemy2_Texture.png");
-  for (int i = 0; i < saucerSpawnCount; i++){
+  for (int i = 0; i < spawnCount[1]; i++){
     Purple_Saucer.add(new Purple_Saucer());
   }
   enemylvl3Texture = loadImage("Textures\\Enemies\\Enemy3_Texture.png");
-  for (int i = 0; i < tracerSpawnCount; i++){
+  for (int i = 0; i < spawnCount[2]; i++){
     Rainbow_Tracer.add(new Rainbow_Tracer());
   }
   enemylvl4Texture = loadImage("Textures\\Enemies\\Enemy4_Texture.png");
-  for (int i = 0; i < seekerSpawnCount; i++){
+  for (int i = 0; i < spawnCount[3]; i++){
     Violent_Seeker.add(new Violent_Seeker());
   }
+  enemylvl5Texture = loadImage("Textures\\Enemies\\Enemy5_Texture.png");
+  for (int i = 0; i < spawnCount[4]; i++){
+    Crypt_Stalker.add(new Crypt_Stalker());
+  }
+  enemylvl6Texture = loadImage("Textures\\Enemies\\Enemy6_Texture.png");
+  for (int i = 0; i < spawnCount[5]; i++){
+    Crypt_Orbs.add(new Crypt_Orbs());
+  }
+  enemylvl7Texture1 = loadImage("Textures\\Enemies\\Enemy7.1_Texture.png");
+  enemylvl7Texture2 = loadImage("Textures\\Enemies\\Enemy7.2_Texture.png");
+  for (int i = 0; i < spawnCount[6]; i++){
+    Crypt_Bomb.add(new Crypt_Bomb());
+  }
+  
   boss1Texture = loadImage("Textures\\Enemies\\Boss1_Texture.png");
-  for (int i = 0; i < marbleSpawnCount; i++){
+  for (int i = 0; i < spawnCount[7]; i++){
     Momma_Marble.add(new Momma_Marble());
   }
-  //No gravity by boss set as default
+  for (int i = 0; i < spawnCount[8]; i++){
+    Void_Evoker.add(new Void_Evoker());
+  }
+  //No gravity by boss 1 set as default
   Fulcrum.gravityWell = false;
-  
   
   //Initializes PGraphics variables
   jetWash = createGraphics(width,height,P2D);
   backWash = createGraphics(round(1.8*width),round(1.8*height),P2D);
 }
 
-void Reroll(int IbrickSpawnCount, int IsaucerSpawnCount, int ItracerSpawnCount, int IseekerSpawnCount, int ImarbleSpawnCount){
+void Reroll(int[] IspawnCount){
   for (int i = 0; i < Red_Brick.size(); i++){
     Red_Brick singleBrick = Red_Brick.get(i);
     Red_Brick.remove(singleBrick);
@@ -224,11 +250,28 @@ void Reroll(int IbrickSpawnCount, int IsaucerSpawnCount, int ItracerSpawnCount, 
     Violent_Seeker singleSeeker = Violent_Seeker.get(i);
     Violent_Seeker.remove(singleSeeker);
   }
+  for (int i = 0; i < Crypt_Stalker.size(); i++){
+    Crypt_Stalker singleStalker = Crypt_Stalker.get(i);
+    Crypt_Stalker.remove(singleStalker);
+  }
+  for (int i = 0; i < Crypt_Orbs.size(); i++){
+    Crypt_Orbs singleOrb = Crypt_Orbs.get(i);
+    Crypt_Orbs.remove(singleOrb);
+  }
+  for (int i = 0; i < Crypt_Bomb.size(); i++){
+    Crypt_Bomb singleBomb = Crypt_Bomb.get(i);
+    Crypt_Bomb.remove(singleBomb);
+  }
+  
   for (int i = 0; i < Momma_Marble.size(); i++){
     Momma_Marble singleMarble = Momma_Marble.get(i);
     Momma_Marble.remove(singleMarble);
   }
-  Roll(IbrickSpawnCount,IsaucerSpawnCount,ItracerSpawnCount,IseekerSpawnCount,ImarbleSpawnCount);
+  for (int i = 0; i < Void_Evoker.size(); i++){
+    Void_Evoker singleEvoker = Void_Evoker.get(i);
+    Void_Evoker.remove(singleEvoker);
+  }
+  Roll(IspawnCount);
 }
 
 

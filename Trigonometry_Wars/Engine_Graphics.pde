@@ -15,6 +15,8 @@ int dWMAX = 18;
 int dW;
 float vortexRadius = 1;
 float vortexAngle = 0;
+//Initializes each frame in the PImage array
+PImage[] VortexGIF = new PImage[58];
 ////gradient color variables (updates bottom to top)
 int c1Red;
 int c1Green;
@@ -56,7 +58,7 @@ void JetWash(){
   }
   else {
     jetWash.beginDraw();
-    jetWash.background(0,10);
+    jetWash.background(0,PIE*TAU);
     if (classicModeState != 11){
       jetWash.stroke(RainbowGen());
       jetWash.strokeWeight(10);
@@ -88,7 +90,12 @@ void BackWash(){
   pushStyle();
   imageMode(CORNERS);
   backWash.beginDraw();
-  backWash.background(0,TAU);
+  if (classicModeState == 7 || classicModeState == 8 || classicModeState == 9 || adventureModeState == 2 || adventureModeState == 3 || adventureModeState == 4){
+    backWash.background(0,PIE*PI);
+  }
+  else {
+    backWash.background(0,50);
+  }
   backWash.endDraw();
   //outputs backWash PGraphics variable to renderer
   image(backWash,-width,-height,width,height);
@@ -179,8 +186,6 @@ color RainbowGen(){
 
 //===============================================MISC ANIMATIONS====================================================================\\
 
-//Initializes each frame in the PImage array
-PImage[] VortexGIF = new PImage[58];
 //Vortex GIF frames
 void VortexLoader(){
   for (int i = 0; i < 58; i++){
@@ -221,7 +226,7 @@ String LevelProgress(int currentScore, int maxScore){
 
 //Changes the color of the progress readout from red to green as the percentage of the current level gets closer to complete
 color c5Modifier(String progressPercentage){
-  //Map function relates a point on one axis to a point on another axis one-to-one <----> map(float to map, min original, max original, min target, max target)
+  //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
   float colorTimer = map(float(progressPercentage),0,100,0,255);
   return color(255 - colorTimer,colorTimer,0);
 }
@@ -323,30 +328,38 @@ void NavButton(String NavPopUpCASEWORD, float xCenter, float yCenter, float hitW
 }
 
 //Displays the World info panel
-void PlanetLabel(String Label, float xCenter, float yCenter, color Panel){
+void PlanetLabel(String Label, String Description, float xCenter, float yCenter, color Panel){
   pushStyle();
   rectMode(CORNER);
   textMode(MODEL);
   strokeWeight(2);
   stroke(Panel,88);
   fill(Panel,5);
-  rect(xCenter + 100,yCenter,200,250);
+  rect(xCenter + 100,yCenter,300,250);
   fill(255);
-  text(Label,xCenter + 100,yCenter,200,250);
+  textSize(64);
+  text(Label,xCenter + 100,yCenter,300,100);
+  textSize(40);
+  text(Description,xCenter + 100,yCenter + 24,300,250);
   popStyle();
 }
 
 //Displays the Level info panel
-void MoonLabel(String Label, float xCenter, float yCenter, color Panel){
+void MoonLabel(String Label, String Description, color Panel){
   pushStyle();
   rectMode(CORNERS);
   textMode(MODEL);
-  strokeWeight(2);
+  strokeWeight(4);
   stroke(Panel,88);
   fill(Panel,5);
-  rect(0,0,width,height/8);
+  rect(-2,-2,width + 2,height/6);
   fill(255);
-  text(Label,0,0,width,height/8);
+  textSize(64);
+  rectMode(CENTER);
+  text(Label,width/2,height/24,width - width/24,textDescent() + textAscent());
+  fill(255,80);
+  textSize(32);
+  text(Description,width/2,height/9,width - width/24,textDescent() + textAscent());
   popStyle();
   //for preview animation
 }
@@ -514,7 +527,7 @@ float eBound = 200;
 float seekerExpansion(float FulcrumxPosition, float FulcrumyPosition, float EnemyxPosition, float EnemyyPosition, float initialEnemyRadius){
   eAccelerator = dist(0,0,width,height)/2;
   eDistance = dist(FulcrumxPosition,FulcrumyPosition,EnemyxPosition,EnemyyPosition);
-  //Map function relates a point on one axis to a point on another axis one-to-one <----> map(float to map, min original, max original, min target, max target)
+  //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
   eCoefficient = initialEnemyRadius + map(eAccelerator - eDistance,0,eAccelerator,0,eBound);
   return eCoefficient;
 }
@@ -563,6 +576,11 @@ float Divide(float N, float D){
     println("L'Hopital Indeterminate -- returned Zero");
     return 0;
   }
+}
+
+//Horizontally Asymptotically approaches zero as time diverges {1 - e^(-time/acceleration)}
+float expApproach(int time, int acceleration){
+  return (1 - Divide(1,exp(Divide(time,acceleration))));
 }
 
 //Computes arbitrarily-sized average
@@ -683,18 +701,18 @@ boolean VectorIntersect(float Shipx, float Shipy, float Enemyx, float Enemyy, fl
   return false;
 }
 
-//Determines which Trigonometric Quadrant a given coordinate lies -- exclusive Cardinals
+//Determines which Standard Trigonometric Quadrant a given coordinate lies in -- CCW Cardinal Inclusion
 int QuadrantFinder(float xlocation, float ylocation){
-  if (xlocation > width/2 && ylocation < height/2){
+  if (xlocation > width/2 && ylocation <= height/2){
     return 1;
   }
-  else if (xlocation < width/2 && ylocation < height/2){
+  else if (xlocation <= width/2 && ylocation < height/2){
     return 2;
   }
-  else if (xlocation < width/2 && ylocation > height/2){
+  else if (xlocation < width/2 && ylocation >= height/2){
     return 3;
   }
-  else if (xlocation > width/2 && ylocation > height/2){
+  else if (xlocation >= width/2 && ylocation > height/2){
     return 4;
   }
   return 0;

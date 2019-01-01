@@ -3,7 +3,7 @@
 //Determines collisiooon between ship and enemy
 boolean deathDetection(float FulcrumxPosition, float FulcrumyPosition, float FulcrumRadius, float EnemyxPosition, float EnemyyPosition, float EnemyRadius){
   if (dist(FulcrumxPosition,FulcrumyPosition,EnemyxPosition,EnemyyPosition) <= (FulcrumRadius + EnemyRadius)){
-    return false;
+    return true;
   }
   return false;
 }
