@@ -12,11 +12,12 @@ boolean strokeIncrement = true;
 int mousepressedIncrement = 10;
 int dWCAP = 12;
 int dWMAX = 18;
-int dW;
+int dW = 4;
 float vortexRadius = 1;
 float vortexAngle = 0;
-//Initializes each frame in the PImage array
+//Declares each frame in the PImage array
 PImage[] VortexGIF = new PImage[58];
+PImage[] ShieldGIF = new PImage[30];
 ////gradient color variables (updates bottom to top)
 int c1Red;
 int c1Green;
@@ -35,7 +36,7 @@ color c4;
 
 //Dynamic background style used for gameplay
 void JetWash(){
-  if (classicModeState == 1){
+  if (programState == 1 && classicModeState == 1){
     stroke(RainbowGen());
     strokeWeight(10);
     //applies a two-way sliding scale to create random rainbow effect with changing laser width
@@ -85,13 +86,16 @@ void JetWash(){
   }
 }
 
-//Background transperency used for Display Scaling
+//Background transperency used for Display Scaling & Adventure Mode Game
 void BackWash(){
   pushStyle();
   imageMode(CORNERS);
   backWash.beginDraw();
   if (classicModeState == 7 || classicModeState == 8 || classicModeState == 9 || adventureModeState == 2 || adventureModeState == 3 || adventureModeState == 4){
     backWash.background(0,PIE*PI);
+  }
+  else if (programState == 2 && adventureModeState == 5){
+    backWash.background(0,sq(TAU));
   }
   else {
     backWash.background(0,50);
@@ -186,19 +190,69 @@ color RainbowGen(){
 
 //===============================================MISC ANIMATIONS====================================================================\\
 
-//Vortex GIF frames
+//Initializes VortexGIF frames
 void VortexLoader(){
-  for (int i = 0; i < 58; i++){
+  for (int i = 0; i < VortexGIF.length; i++){
     VortexGIF[i] = loadImage("Textures\\Vortex-GIF\\vFrame" + i + ".png");
   }
 }
 
-//Displays the Vortex GIF
+//Displays VortexGIF
 void VortexAnimator(){
+  pushStyle();
   imageMode(CORNERS);
   tint(255,100);
   image(VortexGIF[floor(Divide(millis(),40)) % (VortexGIF.length)],0,0,width,height);
   imageMode(CENTER);
+  popStyle();
+}
+
+//Initializes ShieldGIF frames
+void ShieldLoader(){
+  for (int i = 0; i < ShieldGIF.length; i++){
+    ShieldGIF[i] = loadImage("Textures\\Shield-GIF\\sFrame" + i + ".png");
+  }
+}
+
+//Displays VortexGIF or lower-tier shields (or no shields), given the player's equipped upgrades and current location
+void ShieldAnimator(int ShieldLvL, float xLocation, float yLocation, float jetSize){
+  popMatrix();
+  translate(xLocation,yLocation);
+  rotate(enemyTICK % int(TAU));
+  pushStyle();
+  switch (ShieldLvL){
+    case 0:
+      strokeWeight(PI);
+      stroke(0,0,255,75);
+      fill(0,0,255,25);
+      beginShape();
+      //Exterior bounds -- CW
+      vertex(-1.5*jetSize,-1.5*jetSize);
+      vertex(1.5*jetSize,-1.5*jetSize);
+      vertex(1.5*jetSize,1.5*jetSize);
+      vertex(-1.5*jetSize,1.5*jetSize);
+      //Interior bounds -- CCW
+      beginContour();
+      vertex(-20, -20ll);
+      vertex(-20, 20);
+      vertex(20, 20);
+      vertex(20, -20);
+      endContour();
+      endShape(CLOSE);
+    break;
+    case 1:
+    break;
+    case 2:
+    break;
+    case 3:
+      imageMode(CENTER);
+      tint(255,100);
+      image(ShieldGIF[floor(Divide(millis(),40)) % (ShieldGIF.length)],0,0,1.2*jetSize,1.2*jetSize);
+      imageMode(CENTER);
+   break;
+  }
+  popStyle();
+  popMatrix();
 }
 
 //Draws the Fulcrum Death Animation
@@ -387,7 +441,7 @@ void classicScreenBackground(){
   c2Blue = int(128*sin(colorDelta1) + 127);
   c1 = color(c1Red,c1Green,c1Blue);
   c2 = color(c2Red,c2Green,c2Blue);
-  setGradient(0,0,width,height,c1,c2);
+  setyGradient(0,0,width,height,c1,c2);
   colorDelta1 += (PI/720) % (TAU);
 }
 
@@ -395,7 +449,7 @@ void classicScreenBackground(){
 void endClassicScreenBackground(){
   c3 = color(abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)));
   c4 = color(abs(255*cos(colorDelta2)),0,0);
-  setGradient(0,0,width,height,c3,c4);
+  setyGradient(0,0,width,height,c3,c4);
   colorDelta2 += (PI/90) % (TAU);
 }
 
@@ -403,14 +457,27 @@ void endClassicScreenBackground(){
 void winClassicScreenBackground(){
   c3 = color(abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)),abs(255*sin(colorDelta2)));
   c4 = color(0,abs(255*cos(colorDelta2)),0);
-  setGradient(0,0,width,height,c3,c4);
+  setyGradient(0,0,width,height,c3,c4);
   colorDelta2 += (PI/180) % (TAU);
 }
 
-//Initializes and displays gradient
-void setGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, color c1, color c2){
+//Initializes and displays a gradient along the positive X-Cardinal
+void setxGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, color c1, color c2){
+  noFill();
+  for (int i = xPlacement; i <= (xPlacement + xSpread); i++){
+    //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
+    float inter = map(i,xPlacement,xPlacement + xSpread,0,1);
+    color c = lerpColor(c1,c2,inter);
+    stroke(c);
+    line(i,yPlacement,i,yPlacement + ySpread);
+  }
+}
+
+//Initializes and displays a gradient along the positive Y-Cardinal
+void setyGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, color c1, color c2){
   noFill();
   for (int i = yPlacement; i <= (yPlacement + ySpread); i++){
+    //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
     float inter = map(i,yPlacement,yPlacement + ySpread,0,1);
     color c = lerpColor(c1,c2,inter);
     stroke(c);
@@ -564,17 +631,18 @@ float Divide(float N, float D){
     return N/D;
   }
   else {
-    int sign = int(Divide(N,abs(N)));
-    if (sign < 0){
+    if (int(Divide(N,abs(N))) < 0){
       println("Division By Zero -- returned Negative Infinity");
       return tan(Divide(3*PI,2));
     }
-    else if (sign > 0){
+    else if (int(Divide(N,abs(N))) > 0){
       println("Division By Zero -- returned Infinity");
       return -tan(Divide(PI,2));
     }
-    println("L'Hopital Indeterminate -- returned Zero");
-    return 0;
+    else {
+      println("L'Hopital Indeterminate -- returned Zero");
+      return 0;
+    }
   }
 }
 
@@ -590,14 +658,12 @@ float Average(float[] numberQueue){
 
 //Integer Cubing
 int iCube(int n){
-  n *= sq(n);
-  return int(n);
+  return int(n*sq(n));
 }
 
 //Float Cubing
 float fCube(float n){
-  n *= sq(n);
-  return n;
+  return n*sq(n);
 }
 
 //Is numberA > numberB?
@@ -610,7 +676,7 @@ boolean Compare(float numberA, float numberB){
   }
 }
 
-//Return largest between numberA & numberB
+//Returns largest number between numberA & numberB
 float ReturnCompare(float numberA, float numberB){
   if (Compare(numberA,numberB)){
     return numberA;
@@ -620,7 +686,7 @@ float ReturnCompare(float numberA, float numberB){
   }
 }
 
-//Return smallest between numberA & numberB
+//Returns smallest number between numberA & numberB
 float ReturnNotCompare(float numberA, float numberB){
   if (!Compare(numberA,numberB)){
     return numberA;
@@ -632,40 +698,35 @@ float ReturnNotCompare(float numberA, float numberB){
 
 //Validates arbitrary size() & fullScreen() choices
 float ScaleFont(int size){
-  float scale = Divide(width*size,1920);
-  return scale;
+  return Divide(width*size,1920);
 }
 
 //Intelligent Quadratic solver
 float[] QuadraticEQ(float a, float b, float c){
-  float[] quadSolutions = new float[2];
-  float radicand = (pow(b,2) - 4*a*c);
-  if (radicand >= 0){
-    float solution1 = Divide(-b + sqrt(radicand),2*a);
-    float solution2 = Divide(-b - sqrt(radicand),2*a);
-    quadSolutions[0] = solution1;
-    quadSolutions[1] = solution2;
-    return quadSolutions;
+  if ((sq(b) - 4*a*c) >= 0){
+    return (new float[]{Divide(-b + sqrt(sq(b) - 4*a*c),2*a),Divide(-b - sqrt(sq(b) - 4*a*c),2*a)});
   }
   else {
-    println("Non-Real Solutions to QuadraticEQ -- returned radicand & real divisor");
-    quadSolutions[0] = radicand;
-    quadSolutions[1] = Divide(-b,2*a);
-    return quadSolutions;
+    println("Non-Real Solutions to QuadraticEQ -- returned Radicand & Real Divisor");
+    return (new float[]{sq(b) - 4*a*c,Divide(-b,2*a)});
   }
+}
+
+//Calculates the length of the hypetenuse of a triangle given its two legs
+float Pythag(float sideA, float sideB){
+  return sqrt(fSummation(new float[]{sq(sideA),sq(sideB)}));
 }
 
 //Area of a triangle given the three side lengths
 float HeronArea(float sideA, float sideB, float sideC){
-  float semiP = Divide(sideA + sideB + sideC,2);
+  float semiP = Divide(fSummation(new float[]{sideA,sideB,sideC}),2);
   return sqrt(semiP*(semiP - sideA)*(semiP - sideB)*(semiP - sideC));
 }
 
 //===============================================ANALYTIC COMPUTATION====================================================================\\
 
-//Calculates the closest point on the tangent vector associated with the ship and its acceleration heading
+//Calculates the closest point on the tangent vector associated with the ship and its acceleration heading  --->THANKS JOE!!
 boolean VectorIntersect(float Shipx, float Shipy, float Enemyx, float Enemyy, float EnemyRadius){
-  float[] VIntersectionCoords = new float[2];
   PVector u = new PVector(0,0);
   PVector uParV = new PVector(0,0);
   PVector uPerpV = new PVector(0,0);
@@ -683,15 +744,9 @@ boolean VectorIntersect(float Shipx, float Shipy, float Enemyx, float Enemyy, fl
   uPerpV.sub(uParV);
   //set closest
   closestPt.set(Enemyx - uPerpV.x,Enemyy - uPerpV.y);
-  //check that the result is between the points...
-  float d1 = dist(closestPt.x,closestPt.y,Shipx,Shipy);
-  float d2 = dist(closestPt.x,closestPt.y,mouseX,mouseY);
-  if (d1 < v.mag() && d2 < v.mag()){
-    //draw an ellipse at the point on the line from pt 1 to pt2 closest to pt3
-    //ellipse(closestPt.x,closestPt.y,10,10);
-    VIntersectionCoords[0] = closestPt.x;
-    VIntersectionCoords[1] = closestPt.y;
-    if (dist(VIntersectionCoords[0],VIntersectionCoords[1],Enemyx,Enemyy) < EnemyRadius){
+  //check that the result is between the points -- (on the laser)
+  if (dist(closestPt.x,closestPt.y,Shipx,Shipy) < v.mag() && dist(closestPt.x,closestPt.y,mouseX,mouseY) < v.mag()){
+    if (dist(closestPt.x,closestPt.y,Enemyx,Enemyy) < (EnemyRadius + dW)){
       return true;
     }
     else {
@@ -701,18 +756,18 @@ boolean VectorIntersect(float Shipx, float Shipy, float Enemyx, float Enemyy, fl
   return false;
 }
 
-//Determines which Standard Trigonometric Quadrant a given coordinate lies in -- CCW Cardinal Inclusion
+//Determines which Standard Trigonometric Quadrant a given coordinate lies in -- CCW Cardinal Inclusiom returns as 0
 int QuadrantFinder(float xlocation, float ylocation){
-  if (xlocation > width/2 && ylocation <= height/2){
+  if (xlocation > width/2 && ylocation < height/2){
     return 1;
   }
-  else if (xlocation <= width/2 && ylocation < height/2){
+  else if (xlocation < width/2 && ylocation < height/2){
     return 2;
   }
-  else if (xlocation < width/2 && ylocation >= height/2){
+  else if (xlocation < width/2 && ylocation > height/2){
     return 3;
   }
-  else if (xlocation >= width/2 && ylocation > height/2){
+  else if (xlocation > width/2 && ylocation > height/2){
     return 4;
   }
   return 0;
@@ -732,7 +787,7 @@ boolean ExplosionEnd(float xlocation, float ylocation, float Radial){
   else if (QuadrantFinder(xlocation,ylocation) == 4 && Radial/2 > dist(xlocation,ylocation,0,0)){
     return true;
   }
-  else if (Radial/2 > Divide(ReturnCompare(width,height),2)){
+  else if (Divide(3*Radial,2) > Divide(ReturnCompare(width,height),2)){
     return true;
   }
   return false;

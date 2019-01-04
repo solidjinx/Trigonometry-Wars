@@ -77,6 +77,7 @@ void masterSwitch(){
         background(0);
         localTIMER = 0;
         //Vortex(540);
+        RerollAdventureMode();
         programState = 2;
         adventureModeState = 0;
         break;
@@ -85,6 +86,7 @@ void masterSwitch(){
       else if (mousePressed && localTIMER >= 120 && adventureModeUnlocked && NavClicked(width/8,height - Divide(height,10),200,100)){
         background(0);
         localTIMER = 0;
+        //Vortex(540);
         programState = 2;
         adventureModeState = 10;
         break;
@@ -1331,10 +1333,37 @@ void masterSwitch(){
         case 5:  //Adventure Game
           switch (adventureModeGame){
             case 11:  //World 1, Level 1
-              //
+              LevelGen(adventureModeGame,0);
             break;
             case 12:  //World 1, Level 2
-              //
+              if (localTIMER == height){
+                localTIMER = 0;
+              }
+              LevelGen(adventureModeGame,localTIMER);
+              if ((enemyTICK % 60) == 0){
+                Red_Brick.add(new Red_Brick());
+              }
+              for (int i = 0; i < Red_Brick.size(); i++){
+                Red_Brick singleBrick = Red_Brick.get(i);
+                if (deathDetection(Fulcrum.location.x,Fulcrum.location.y,Fulcrum.jetSize/2,singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  programState = 1;
+                  classicModeState = 11;
+                  break;
+                }
+                if (driftDetection(singleBrick.xPos,singleBrick.yPos,singleBrick.enemySize/2)){
+                  Red_Brick.remove(singleBrick);
+                }
+                else if (mousePressed && killDetection(singleBrick.xPos,singleBrick.yPos,Fulcrum.location.x,Fulcrum.location.y,singleBrick.enemySize/2)){
+                  singleBrick.HEALTH--;
+                  if (singleBrick.HEALTH == 0){
+                    playerSCORE += singleBrick.VALUE;
+                    Red_Brick.remove(singleBrick);
+                  }
+                }
+                singleBrick.move();
+                singleBrick.display();
+              }
+              localTIMER++;
             break;
             case 13:  //World 1, Level 3
               //

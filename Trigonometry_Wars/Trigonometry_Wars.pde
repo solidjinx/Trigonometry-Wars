@@ -1,5 +1,7 @@
 //player declarations
-playerClassicJet Fulcrum;
+playerFulcrumJet Fulcrum;
+playerDrifterJet Drifter;
+playerBehemothJet Behemoth;
 //enemy class declarations
 ArrayList<Red_Brick> Red_Brick = new ArrayList<Red_Brick>();
 ArrayList<Purple_Saucer> Purple_Saucer = new ArrayList<Purple_Saucer>();
@@ -110,6 +112,7 @@ void setup(){
   Roll(new int[]{1,1,1,1,1,1,1,1,1});
   //RollVortex(1);
   VortexLoader();
+  ShieldLoader();
   RollGraphics();
   RollAdventureMode();
   

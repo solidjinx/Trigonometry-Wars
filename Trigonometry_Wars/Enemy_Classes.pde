@@ -375,7 +375,7 @@ class Crypt_Bomb{
     ////Constructor
     xTarget = random(enemySize,width - enemySize);
     yTarget = random(Divide(height,3) + enemySize,height - enemySize);
-    pointCount = cartridgeLoad[round(random(cartridgeLoad.length))];
+    pointCount = cartridgeLoad[int(random(cartridgeLoad.length))];
     deltaPhi = Divide(2*PI,pointCount);
     HEALTH = 30;
     moveTick = 0;
@@ -421,6 +421,8 @@ class Crypt_Bomb{
         image(enemylvl7Texture1,-enemySize,-enemySize,enemySize,enemySize);
         rotate(6*phi);
         image(enemylvl7Texture2,-Divide(3*enemySize,5),-Divide(3*enemySize,5),Divide(3*enemySize,5),Divide(3*enemySize,5));
+        rotate(-12*phi);
+        image(enemylvl7Texture2,-Divide(enemySize,3),-Divide(enemySize,3),Divide(enemySize,3),Divide(enemySize,3));
         popStyle();
         popMatrix();
         phi += Divide(PI,22.5);
