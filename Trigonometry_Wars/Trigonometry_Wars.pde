@@ -86,7 +86,6 @@ boolean adventureModeUnlocked;
 int enemyTICK = 0;           //for controlling enemy spawning and movement
 int playerSCORE = 0;         //for scoring points  //20440 is max Classic score
 int playerCARNAGEKUDOS = 0;  //for controlling ship upgrades
-boolean throwBomb = false;
 
 
 void setup(){

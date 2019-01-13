@@ -373,13 +373,16 @@ class Crypt_Bomb{
 
   Crypt_Bomb(){
     ////Constructor
-    xTarget = random(enemySize,width - enemySize);
-    yTarget = random(Divide(height,3) + enemySize,height - enemySize);
-    pointCount = cartridgeLoad[int(random(cartridgeLoad.length))];
-    deltaPhi = Divide(2*PI,pointCount);
     HEALTH = 30;
     moveTick = 0;
     displayTick = 0;
+    //Randomly chooses a destination to be thrown to
+    xTarget = random(enemySize,width - enemySize);
+    yTarget = random(Divide(height,3) + enemySize,height - enemySize);
+    //Randomly chooses a seed to produce the explosion animation
+    pointCount = cartridgeLoad[int(random(cartridgeLoad.length))];
+    //Interpolates the central angle per vertex count of the stretched polygon randomly chosen above
+    deltaPhi = Divide(TAU,pointCount);
   }
 
   ////Class methods
@@ -398,7 +401,7 @@ class Crypt_Bomb{
         yPos = map(expApproach(moveTick,16),0,1,height/3,yTarget);
         moveTick++;
       break;
-      case 1:  //at target location -- countdown towards explosion
+      case 1:  //at target location -- initiates countdown to explosion
         if (moveTick >= 60){
           explode = true;
           moveTick = 0;
@@ -412,7 +415,7 @@ class Crypt_Bomb{
   
   void display(){
     switch (bombDisplayState){
-      case 0:  //default bomb texture
+      case 0:  //default (unexploded) bomb texture
         pushMatrix();
         translate(xPos,yPos);
         rotate(-phi);

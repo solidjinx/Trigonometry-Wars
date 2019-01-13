@@ -1,21 +1,23 @@
-//===============================================FULCRUM (Classic-Adventure Hybrid)====================================================================\\
-////Fulcrum Upgrades
-boolean FTier0;         //Speed0,      LaserWidth0,      Health0,      Shield0
-boolean FTier1;         //Speed+,      LaserWidth+,      Health+,      Shield0
-boolean FTier2;         //Speed++,     LaserWidth++,     Health++,     Shield0
-boolean FTier3;         //Speed++,     LaserWidth+++,    Health++,     Shield1
+//===============================================GLOBAL JET VARIABLES====================================================================\\
+////Upgrades per jet    ~SPEED~          ~HEALTH~          ~SHIELD~          ~LASER ATTACK~          ~DASH ATTACK~          ~BURST ATTACK~
 
-////Drifter Upgrades
-boolean DTier0;         //Speed+,         Health+,       Shield0
-boolean DTier1;         //Speed++,        Health+,       Shield1
-boolean DTier2;         //Speed+++,       Health++,      Shield2
-boolean DTier3;         //Speed++++,      Health+++,     Shield2
+//Fulcrum Upgrades
+boolean FTier0;       // {DEFAULT}        {DEFAULT}         {NONE}            {DEFAULT}               {N/A}                  {N/A}
+boolean FTier1;       // +                +                 {NONE}            +                       {N/A}                  {N/A}
+boolean FTier2;       // ++               ++                1                 ++                      {N/A}                  {N/A}
+boolean FTier3;       // ++               ++                1                 +++                     {N/A}                  {N/A}
 
-////Behemoth Upgrades
-boolean BTier0;         //Speed0,      Burst0,      Health0,      Shield0
-boolean BTier1;         //Speed+,      Burst+,      Health+,      Shield1
-boolean BTier2;         //Speed++,     Burst++,     Health++,     Shield2
-boolean BTier3;         //Speed++,     Burst+++,    Health+++,    Shield3
+//Drifter Upgrades
+boolean DTier0;       // +                {DEFAULT}         {NONE}            {N/A}                   {DEFAULT}              {N/A}
+boolean DTier1;       // ++               +                 1                 {N/A}                   +                      {N/A}
+boolean DTier2;       // +++              ++                2                 {N/A}                   ++                     {N/A}
+boolean DTier3;       // ++++             ++                2                 {N/A}                   +++                    {N/A}
+
+//Behemoth Upgrades
+boolean BTier0;       // {DEFAULT}        +                 1                 {N/A}                   {N/A}                  {DEFAULT}
+boolean BTier1;       // {DEFAULT]        ++                1                 {N/A}                   {N/A}                  +
+boolean BTier2;       // -                +++               2                 {N/A}                   {N/A}                  ++
+boolean BTier3;       // --               ++++              3                 {N/A}                   {N/A}                  +++
 
 
 //===============================================FULCRUM (Classic-Adventure Hybrid)====================================================================\\
