@@ -967,7 +967,12 @@ void masterSwitch(){
           for (int i = 0; i < planet2.size(); i++){
             SecondSystem singleWorld = planet2.get(i);
             if (dist(1.8*mouseX - Divide(1.8*width,2),1.8*mouseY - Divide(1.8*height,2),singleWorld.location.x,singleWorld.location.y) <= exp(1)*singleWorld.macroRadius){
-              singleWorld.Settle();
+              if(priority =-1){
+                priority = worldId;
+              }
+              if(worldId == priority){
+                singleWorld.Settle();
+              }
               if (World2){
                 PlanetLabel("World 2:","Astroid Belt",singleWorld.location.x,singleWorld.location.y,color(255,0,255));
                 if (mousePressed){

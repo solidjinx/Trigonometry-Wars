@@ -223,42 +223,42 @@ void Shield3Animator(float jetSize){
 }
 
 //Displays ShieldGIF or lower-tier shields (or no shields), given the player's equipped upgrade and current location
-void ShieldAnimator(int ShieldLvL, float xLocation, float yLocation, float jetSize){
-  popMatrix();
-  translate(xLocation,yLocation);
-  rotate(enemyTICK % int(TAU));
-  pushStyle();
-  switch (ShieldLvL){
-    case 0:
-      strokeWeight(PI);
-      stroke(0,0,255,75);
-      fill(0,0,255,25);
-      beginShape();
-      //Exterior bounds -- CW
-      vertex(-1.5*jetSize,-1.5*jetSize);
-      vertex(1.5*jetSize,-1.5*jetSize);
-      vertex(1.5*jetSize,1.5*jetSize);
-      vertex(-1.5*jetSize,1.5*jetSize);
-      //Interior bounds -- CCW
-      beginContour();
-      vertex(-20, -20ll);
-      vertex(-20, 20);
-      vertex(20, 20);
-      vertex(20, -20);
-      endContour();
-      endShape(CLOSE);
-    break;
-    case 1:
-    break;
-    case 2:
-    break;
-    case 3:
-      Shield3Animator(jetSize);
-   break;
-  }
-  popStyle();
-  popMatrix();
-}
+//void ShieldAnimator(int ShieldLvL, float xLocation, float yLocation, float jetSize){
+//  popMatrix();
+//  translate(xLocation,yLocation);
+//  rotate(enemyTICK % int(TAU));
+//  pushStyle();
+//  switch (ShieldLvL){
+//    case 0:
+//      strokeWeight(PI);
+//      stroke(0,0,255,75);
+//      fill(0,0,255,25);
+//      beginShape();
+//      //Exterior bounds -- CW
+//      vertex(-1.5*jetSize,-1.5*jetSize);
+//      vertex(1.5*jetSize,-1.5*jetSize);
+//      vertex(1.5*jetSize,1.5*jetSize);
+//      vertex(-1.5*jetSize,1.5*jetSize);
+//      //Interior bounds -- CCW
+//      beginContour();
+//      vertex(-20, -20ll);
+//      vertex(-20, 20);
+//      vertex(20, 20);
+//      vertex(20, -20);
+//      endContour();
+//      endShape(CLOSE);
+//    break;
+//    case 1:
+//    break;
+//    case 2:
+//    break;
+//    case 3:
+//      Shield3Animator(jetSize);
+//   break;
+//  }
+//  popStyle();
+//  popMatrix();
+//}
 
 //Draws the Fulcrum Death Animation
 float explosionCounter = 1;

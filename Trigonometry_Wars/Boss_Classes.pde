@@ -24,7 +24,7 @@ class Momma_Marble{
     HEALTH = VALUE;
     Speed = 6;
     cardinalPicker = int(random(1,5));
-    Fulcrum.strengthModulator = 1;
+    //Fulcrum.strengthModulator = 1;
   }
 
   ////Class methods

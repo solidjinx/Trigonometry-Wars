@@ -59,7 +59,7 @@ void Void(int VoidlingCount){
 void Roll(int[] spawnCount){
   //Initializes ArrayLists and textures
   playerJetFulcrumTexture = loadImage("Textures\\Fulcrum_Texture.png");
-  Fulcrum = new playerFulcrumJet();
+  //Fulcrum = new playerFulcrumJet();
   
   enemylvl1Texture = loadImage("Textures\\Enemies\\Enemy1_Texture.png");
   for (int i = 0; i < spawnCount[0]; i++){
@@ -99,9 +99,9 @@ void Roll(int[] spawnCount){
     Void_Evoker.add(new Void_Evoker());
   }
   //No gravity sink by boss 1 set as default
-  Fulcrum.gravityWell = false;
-  Drifter.gravityWell = false;
-  Behemoth.gravityWell = false;
+  //Fulcrum.gravityWell = false;
+  //Drifter.gravityWell = false;
+  //Behemoth.gravityWell = false;
   
   //Initializes PGraphics variables
   jetWash = createGraphics(width,height,P2D);
