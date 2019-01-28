@@ -1,18 +1,21 @@
 //===============================================GLOBAL JET VARIABLES====================================================================\\
 ////Upgrades per jet    ~SPEED~          ~HEALTH~          ~SHIELD~          ~LASER ATTACK~          ~DASH ATTACK~          ~BURST ATTACK~
 
+boolean isFulcrum;
 //Fulcrum Upgrades
 boolean FTier0;       // {DEFAULT}        {DEFAULT}         {NONE}            {DEFAULT}               {N/A}                  {N/A}
 boolean FTier1;       // +                +                 {NONE}            +                       {N/A}                  {N/A}
 boolean FTier2;       // ++               ++                1                 ++                      {N/A}                  {N/A}
 boolean FTier3;       // ++               ++                1                 +++                     {N/A}                  {N/A}
 
+boolean isDrifter;
 //Drifter Upgrades
 boolean DTier0;       // +                {DEFAULT}         {NONE}            {N/A}                   {DEFAULT}              {N/A}
 boolean DTier1;       // ++               +                 1                 {N/A}                   +                      {N/A}
 boolean DTier2;       // +++              ++                2                 {N/A}                   ++                     {N/A}
 boolean DTier3;       // ++++             ++                2                 {N/A}                   +++                    {N/A}
 
+boolean isBehemoth;
 //Behemoth Upgrades
 boolean BTier0;       // {DEFAULT}        +                 1                 {N/A}                   {N/A}                  {DEFAULT}
 boolean BTier1;       // {DEFAULT]        ++                1                 {N/A}                   {N/A}                  +

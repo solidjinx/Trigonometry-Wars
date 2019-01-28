@@ -203,7 +203,6 @@ void VortexAnimator(){
   imageMode(CORNERS);
   tint(255,100);
   image(VortexGIF[floor(Divide(millis(),40)) % (VortexGIF.length)],0,0,width,height);
-  imageMode(CENTER);
   popStyle();
 }
 
@@ -214,7 +213,16 @@ void ShieldLoader(){
   }
 }
 
-//Displays VortexGIF or lower-tier shields (or no shields), given the player's equipped upgrades and current location
+//Displays VortexGIF
+void Shield3Animator(float jetSize){
+  pushStyle();
+  imageMode(CORNERS);
+  tint(255,100);
+  image(ShieldGIF[floor(Divide(millis(),40)) % (ShieldGIF.length)],0,0,1.2*jetSize,1.2*jetSize);
+  popStyle();
+}
+
+//Displays ShieldGIF or lower-tier shields (or no shields), given the player's equipped upgrade and current location
 void ShieldAnimator(int ShieldLvL, float xLocation, float yLocation, float jetSize){
   popMatrix();
   translate(xLocation,yLocation);
@@ -245,10 +253,7 @@ void ShieldAnimator(int ShieldLvL, float xLocation, float yLocation, float jetSi
     case 2:
     break;
     case 3:
-      imageMode(CENTER);
-      tint(255,100);
-      image(ShieldGIF[floor(Divide(millis(),40)) % (ShieldGIF.length)],0,0,1.2*jetSize,1.2*jetSize);
-      imageMode(CENTER);
+      Shield3Animator(jetSize);
    break;
   }
   popStyle();
@@ -416,6 +421,31 @@ void MoonLabel(String Label, String Description, color Panel){
   text(Description,width/2,height/9,width - width/24,textDescent() + textAscent());
   popStyle();
   //for preview animation
+}
+
+void JetUpgradePanel(){
+  //Draws panel
+  
+  //Determines which jet to spawn
+  //if (mousePressed && localTIMER >= 120 && NavClicked(,,,)){
+  //  localTIMER = 0;
+  //  isFulcrum = true;
+  //  isDrifter = false;
+  //  isBehemoth = false;
+  //}
+  //else if (mousePressed && localTIMER >= 120 && NavClicked(,,,)){
+  //  localTIMER = 0;
+  //  isFulcrum = false;
+  //  isDrifter = true;
+  //  isBehemoth = false;
+  //}
+  //else if (mousePressed && localTIMER >= 120 && NavClicked(,,,)){
+  //  localTIMER = 0;
+  //  isFulcrum = false;
+  //  isDrifter = false;
+  //  isBehemoth = true;
+  //}
+  localTIMER++;
 }
 
 //Did the player click a navigation button?
