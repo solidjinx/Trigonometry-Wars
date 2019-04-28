@@ -799,7 +799,7 @@ float[] QuadraticEQ(float a, float b, float c){
   }
 }
 
-//Calculates the length of the hypetenuse of a triangle given its two legs
+//Calculates the length of the hypotenuse of a triangle given its two legs
 float Pythag(float sideA, float sideB){
   return sqrt(fSummation(new float[]{sq(sideA),sq(sideB)}));
 }
