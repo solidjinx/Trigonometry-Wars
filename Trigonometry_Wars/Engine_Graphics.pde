@@ -783,6 +783,43 @@ float ReturnNotCompare(float numberA, float numberB){
   }
 }
 
+//Randomly selects an integer within a given range; rerolls the number if it matches a blacklisted item
+int iDynRandom(int min, int max, int[] blacklist){
+  if (blacklist.length == (max - min)){
+    return max;
+  }
+  boolean blacklisted = false;
+  int item = int(random(min,max));
+  for (int i = 0; i < blacklist.length; i++){
+    if (item == blacklist[i]){
+      blacklisted = true;
+    }
+  }
+  if (!blacklisted){
+    return item;
+  }
+  else {
+    return iDynRandom(min,max,blacklist);
+  }
+}
+
+//Randomly selects a float within a given range; rerolls the number if it matches a blacklisted item
+float fDynRandom(float min, float max, float[] blacklist){
+  boolean blacklisted = false;
+  float item = random(min,max);
+  for (int i = 0; i < blacklist.length; i++){
+    if (item == blacklist[i]){
+      blacklisted = true;
+    }
+  }
+  if (!blacklisted){
+    return item;
+  }
+  else {
+    return fDynRandom(min,max,blacklist);
+  }
+}
+
 //Validates arbitrary size() & fullScreen() choices
 float ScaleFont(int size){
   return Divide(width*size,1920);
