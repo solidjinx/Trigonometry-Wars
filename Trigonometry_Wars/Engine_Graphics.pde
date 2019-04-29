@@ -699,7 +699,7 @@ float fCube(float n){
 //Calculates the values for non-default trigonometric functions by their shorthand notation
 float trigFunction(String name, float theta){
   if (name == "help!"){
-    String[] trigCatalog = {"Cosecant --> csc(Z)=1/sin(Z)","Secant --> sec(Z)=1/cos(Z)","Cotangent --> cot(Z)=1/tan(Z)","Versine --> ver(Z)=1 - cos(Z)","Vercosine --> vcs(Z)=1 + cos(Z)","Coversine --> cvs(Z)=1 - sin(Z)","Covercosine --> cvc(Z)=1 + sin(Z)","Haversine --> hav(Z)=(1 - cos(Z))/2","Havercosine --> hvc(Z)=(1 + cos(Z))/2","Hacoversine --> hcv(Z)=(1 - sin(Z))/2","Hacovercosine --> hcc(Z)=(1 + sin(Z))/2","Exsecant --> exs(Z)=sec(Z) - 1","Excosecant --> exc(Z)=csc(Z) - 1","Chord --> crd(Z)=2sin(Z/2)"};
+    String[] trigCatalog = {"Cosecant --> csc(Z) = 1/sin(Z)","Secant --> sec(Z) = 1/cos(Z)","Cotangent --> cot(Z) = 1/tan(Z)","Versine --> ver(Z) = 1 - cos(Z)","Vercosine --> vcs(Z) = 1 + cos(Z)","Coversine --> cvs(Z) = 1 - sin(Z)","Covercosine --> cvc(Z) = 1 + sin(Z)","Haversine --> hav(Z) = (1 - cos(Z))/2","Havercosine --> hvc(Z) = (1 + cos(Z))/2","Hacoversine --> hcv(Z) = (1 - sin(Z))/2","Hacovercosine --> hcc(Z) = (1 + sin(Z))/2","Exsecant --> exs(Z) = sec(Z) - 1","Excosecant --> exc(Z) = csc(Z) - 1","Chord --> crd(Z) = 2sin(Z/2)"};
     for (int i = 0; i < trigCatalog.length; i++){
       println(trigCatalog[i]);
     }
@@ -759,6 +759,45 @@ boolean Compare(float numberA, float numberB){
     return true;
   }
   else {
+    return false;
+  }
+}
+
+//Checks if a number is within a given range
+boolean inRange(String condition, float min, float max, float item){
+  if (condition == "help!"){
+    String[] boundConditions = {"Mutually Inclusive --> []","Upper Exclusive, Lower Inclusive --> [)","Upper Inclusive, Lower Exclusive --> (]","Mutually Exclusive --> ()"};
+    for (int i = 0; i < boundConditions.length; i++){
+      println(boundConditions[i]);
+    }
+    return false;
+  }
+  else if (condition == "[]"){
+    if (item >= min && item <= max){
+      return true;
+    }
+    return false;
+  }
+  else if (condition == "[)"){
+    if (item >= min && item < max){
+      return true;
+    }
+    return false;
+  }
+  else if (condition == "(]"){
+    if (item > min && item <= max){
+      return true;
+    }
+    return false;
+  }
+  else if (condition == "()"){
+    if (item > min && item < max){
+      return true;
+    }
+    return false;
+  }
+  else {
+    println("Invalid or missing entry; type 'help!' to see a list of available conditions");
     return false;
   }
 }
