@@ -1,4 +1,4 @@
-//Classic Mode Tutorial
+  //Classic Mode Tutorial
 String Title = "Trigonometry Wars";
 String SubTitle = "welcome to your [likely] doom...";
 

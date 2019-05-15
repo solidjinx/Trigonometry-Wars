@@ -357,7 +357,6 @@ void NavPopUp(String caseWord, float xCenter, float yCenter, float labelWidth, f
 
 //Displays the textures for the button, passes label-to-display to NavPopUp()
 void NavButton(String NavPopUpCASEWORD, float xCenter, float yCenter, float hitWidth, float hitHeight, String label4PopUp, int side){
-  float[] hitBox = {hitWidth,hitHeight};
   pushStyle();
   ellipseMode(CENTER);
   noStroke();
@@ -381,7 +380,7 @@ void NavButton(String NavPopUpCASEWORD, float xCenter, float yCenter, float hitW
     NavPopUp("Adventure",xCenter,yCenter,hitWidth,hitHeight,label4PopUp,side);
   }
   //For all other buttons displays
-  else if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitBox),2)){
+  else if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(new float[]{hitWidth,hitHeight}),2)){
     NavPopUp(NavPopUpCASEWORD,xCenter,yCenter,hitWidth,hitHeight,label4PopUp,side);
   }
 }
@@ -450,8 +449,7 @@ void JetUpgradePanel(){
 
 //Did the player click a navigation button?
 boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight){
-  float[] hitBox = {hitWidth,hitHeight};
-  if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(hitBox),2)){
+  if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(new float[]{hitWidth,hitHeight}),2)){
     return true;
   }
   else {
