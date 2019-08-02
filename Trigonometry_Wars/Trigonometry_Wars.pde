@@ -129,6 +129,6 @@ void draw(){
   masterSwitch();  //Screen_Control tab
   enemyTICK++;
   
-  //println(frameRate);
+  //println(int(frameRate));
   //println(activeSTATES);
 }
